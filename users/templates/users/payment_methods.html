@@ -1,0 +1,28 @@
+{% extends 'main.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Payment Methods</h2>
+    <a href="{% url 'add-payment' %}" class="btn btn-primary mb-3">Add New Payment Method</a>
+    
+    <div class="row">
+        {% for method in methods %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ method.get_payment_type_display }}</h5>
+                    <pre>{{ method.details }}</pre>
+                    <p class="text-muted">
+                        {% if method.is_primary %}Primary Method{% endif %}
+                        {% if method.is_verified %}✅ Verified{% else %}⚠️ Unverified{% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">No payment methods found</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

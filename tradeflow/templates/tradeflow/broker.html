@@ -1,0 +1,334 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block content %}
+<section class="tf-home-lite">
+    <div class="tf-home-hero-card">
+        <div class="row align-items-center">
+            <div class="col-lg-7 mb-4 mb-lg-0">
+                <p class="tf-home-kicker">TradeFlow Platform</p>
+                <h1 class="tf-home-title">Trade smarter from one modern workspace.</h1>
+                <p class="tf-home-lead">
+                    Monitor the market, compare brokers, place trades, and manage your portfolio without switching between tools.
+                </p>
+                <div class="tf-home-actions">
+                    <a class="tf-home-btn tf-home-btn-primary" href="{% url 'exchange' %}">
+                        <i class="icon ion-md-trending-up"></i>
+                        Open Exchange
+                    </a>
+                    <a class="tf-home-btn tf-home-btn-ghost" href="{% url 'brokers' %}">
+                        <i class="icon ion-md-briefcase"></i>
+                        View Brokers
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="tf-home-stats-card">
+                    <h3>Today at a glance</h3>
+                    <div class="tf-home-stats-grid">
+                        <div>
+                            <span>Global Volume</span>
+                            <strong>$657B</strong>
+                        </div>
+                        <div>
+                            <span>Active Markets</span>
+                            <strong>120+</strong>
+                        </div>
+                        <div>
+                            <span>Connected Brokers</span>
+                            <strong>40+</strong>
+                        </div>
+                        <div>
+                            <span>Regions</span>
+                            <strong>100+</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tf-home-strip">
+        <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script
+                type="text/javascript"
+                src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
+                async
+            >
+            {
+              "symbols": [
+                {"description": "Bitcoin", "proName": "BINANCE:BTCUSDT"},
+                {"description": "Ethereum", "proName": "BINANCE:ETHUSDT"},
+                {"description": "Solana", "proName": "BINANCE:SOLUSDT"},
+                {"description": "BNB", "proName": "BINANCE:BNBUSDT"},
+                {"description": "XRP", "proName": "BINANCE:XRPUSDT"}
+              ],
+              "showSymbolLogo": true,
+              "displayMode": "adaptive",
+              "colorTheme": "light",
+              "locale": "en"
+            }
+            </script>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <article class="tf-home-info-card">
+                <h4>Exchange</h4>
+                <p>Place buy and sell orders directly with balance-aware validation.</p>
+                <a href="{% url 'exchange' %}">Go to exchange</a>
+            </article>
+        </div>
+        <div class="col-md-4 mb-3">
+            <article class="tf-home-info-card">
+                <h4>Account</h4>
+                <p>Track order history, trade summary, and account-level activity.</p>
+                <a href="{% url 'account-summary' %}">Open account</a>
+            </article>
+        </div>
+        <div class="col-md-4 mb-3">
+            <article class="tf-home-info-card">
+                <h4>Wallet</h4>
+                <p>Manage balances and addresses across your supported assets.</p>
+                <a href="{% url 'wallet' %}">Open wallet</a>
+            </article>
+        </div>
+    </div>
+
+    <div class="tf-home-cta">
+        <h2>Ready to start?</h2>
+        <p>Move from market analysis to execution in a few clicks.</p>
+        <div class="tf-home-actions justify-content-center">
+            {% if request.user.is_authenticated %}
+                <a class="tf-home-btn tf-home-btn-primary" href="{% url 'exchange' %}">Start Trading</a>
+            {% else %}
+                <a class="tf-home-btn tf-home-btn-primary" href="{% url 'users:signup' %}">Create Account</a>
+                <a class="tf-home-btn tf-home-btn-ghost" href="{% url 'users:login' %}">Sign In</a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap");
+
+    .tf-nav-wrap {
+        margin-bottom: 0.6rem !important;
+    }
+
+    main.container.py-4 {
+        padding-top: 0.45rem !important;
+        padding-bottom: 1rem !important;
+    }
+
+    .tf-home-lite {
+        display: grid;
+        gap: 0.95rem;
+    }
+
+    .tf-home-hero-card {
+        border: 1px solid #d2e1e8;
+        border-radius: 18px;
+        background: linear-gradient(155deg, #f7fcff 0%, #f4fffe 50%, #fff9ee 100%);
+        padding: 1.2rem;
+    }
+
+    .tf-home-kicker {
+        display: inline-block;
+        margin: 0 0 0.55rem;
+        padding: 0.3rem 0.72rem;
+        border-radius: 999px;
+        background: rgba(15, 118, 110, 0.12);
+        color: #0f766e;
+        font-family: "Outfit", sans-serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+
+    .tf-home-title {
+        margin: 0;
+        color: #0b2f3d;
+        font-family: "Outfit", sans-serif;
+        font-weight: 800;
+        font-size: clamp(1.55rem, 4vw, 2.65rem);
+        line-height: 1.1;
+    }
+
+    .tf-home-lead {
+        margin: 0.8rem 0 0;
+        color: #334155;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        line-height: 1.62;
+        font-size: 0.98rem;
+    }
+
+    .tf-home-actions {
+        margin-top: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+    }
+
+    .tf-home-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.42rem;
+        padding: 0.7rem 0.95rem;
+        border-radius: 11px;
+        border: 1px solid transparent;
+        text-decoration: none;
+        font-family: "Outfit", sans-serif;
+        font-weight: 600;
+        font-size: 0.94rem;
+    }
+
+    .tf-home-btn:hover {
+        text-decoration: none;
+    }
+
+    .tf-home-btn-primary {
+        background: linear-gradient(135deg, #0f766e, #0ea5a8);
+        color: #f8fafc;
+    }
+
+    .tf-home-btn-primary:hover {
+        color: #f8fafc;
+    }
+
+    .tf-home-btn-ghost {
+        background: #ffffff;
+        color: #12374d;
+        border-color: #bfd3dd;
+    }
+
+    .tf-home-btn-ghost:hover {
+        color: #0b2f3d;
+    }
+
+    .tf-home-stats-card {
+        border: 1px solid #cddfe8;
+        border-radius: 14px;
+        background: #ffffff;
+        padding: 0.95rem;
+    }
+
+    .tf-home-stats-card h3 {
+        margin: 0;
+        color: #102a43;
+        font-family: "Outfit", sans-serif;
+        font-size: 1.05rem;
+        font-weight: 700;
+    }
+
+    .tf-home-stats-grid {
+        margin-top: 0.75rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.6rem;
+    }
+
+    .tf-home-stats-grid div {
+        border: 1px solid #dde8ee;
+        border-radius: 10px;
+        padding: 0.55rem 0.6rem;
+    }
+
+    .tf-home-stats-grid span {
+        display: block;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        color: #64748b;
+        font-size: 0.76rem;
+    }
+
+    .tf-home-stats-grid strong {
+        display: block;
+        margin-top: 0.2rem;
+        color: #102a43;
+        font-family: "Outfit", sans-serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+    }
+
+    .tf-home-strip {
+        border: 1px solid #cddde6;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #ffffff;
+    }
+
+    .tf-home-info-card {
+        height: 100%;
+        border: 1px solid #d5e4eb;
+        border-radius: 14px;
+        background: #ffffff;
+        padding: 0.95rem;
+    }
+
+    .tf-home-info-card h4 {
+        margin: 0;
+        color: #102a43;
+        font-family: "Outfit", sans-serif;
+        font-size: 1.02rem;
+        font-weight: 700;
+    }
+
+    .tf-home-info-card p {
+        margin: 0.5rem 0 0.65rem;
+        color: #334155;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 0.92rem;
+        line-height: 1.55;
+    }
+
+    .tf-home-info-card a {
+        color: #0f766e;
+        font-family: "Outfit", sans-serif;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .tf-home-info-card a:hover {
+        text-decoration: underline;
+    }
+
+    .tf-home-cta {
+        border: 1px solid #cfe1e8;
+        border-radius: 14px;
+        background: #f8fcff;
+        padding: 1rem;
+        text-align: center;
+    }
+
+    .tf-home-cta h2 {
+        margin: 0;
+        color: #0b2f3d;
+        font-family: "Outfit", sans-serif;
+        font-size: clamp(1.25rem, 2.5vw, 1.9rem);
+        font-weight: 700;
+    }
+
+    .tf-home-cta p {
+        margin: 0.5rem 0 0;
+        color: #475569;
+        font-family: "Plus Jakarta Sans", sans-serif;
+    }
+
+    @media (max-width: 767px) {
+        .tf-home-hero-card,
+        .tf-home-stats-card,
+        .tf-home-info-card,
+        .tf-home-cta {
+            padding: 0.85rem;
+        }
+
+        .tf-home-btn {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock content %}

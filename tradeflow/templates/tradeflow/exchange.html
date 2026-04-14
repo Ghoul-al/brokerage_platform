@@ -1,0 +1,440 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block content %}
+<div class="tf-exchange-page">
+  <section class="tf-exchange-head mb-4">
+    <div class="tf-exchange-head-content">
+      <div>
+        <p class="tf-kicker mb-2">Trading Desk</p>
+        <h1 class="mb-1">Exchange</h1>
+        <p class="mb-0 text-muted">Monitor broker pricing and place verified orders from one workspace.</p>
+      </div>
+      <div class="tf-exchange-head-metrics">
+        <div class="tf-ex-metric">
+          <span>Available Balance</span>
+          <strong>${{ account.balance }}</strong>
+        </div>
+        <a class="tf-btn tf-btn-primary" href="{% url 'account-summary' %}">View Account</a>
+      </div>
+    </div>
+  </section>
+
+<div class="container-fluid mtb15 no-fluid">
+  <div class="row sm-gutters">
+    <div class="col-md-3">
+      <div class="market-pairs">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-sm"><i class="icon ion-md-search"></i></span>
+          </div>
+          <input type="text" class="form-control" placeholder="Search" aria-describedby="inputGroup-sizing-sm">
+        </div>
+        <ul class="nav nav-pills" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#STAR" role="tab" aria-selected="true"><i class="icon ion-md-star"></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="pill" href="#all" role="tab" aria-selected="true">All Brokers</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#stocks" role="tab">Stocks</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#forex" role="tab">Forex</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#crypto" role="tab">Crypto</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane fade show" id="STAR" role="tabpanel">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Pairs</th>
+                  <th>Last Price</th>
+                  <th>Change</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><i class="icon ion-md-star"></i> ETH/BTC</td>
+                  <td>0.00020255</td>
+                  <td class="red">-2.58%</td>
+                </tr>
+                <tr>
+                  <td><i class="icon ion-md-star"></i> KCS/BTC</td>
+                  <td>0.00013192</td>
+                  <td class="green">+5.6%</td>
+                </tr>
+                <tr>
+                  <td><i class="icon ion-md-star"></i> XRP/BTC</td>
+                  <td>0.00002996</td>
+                  <td class="red">-1.55%</td>
+                </tr>
+                <tr>
+                  <td><i class="icon ion-md-star"></i> VET/BTC</td>
+                  <td>0.00000103</td>
+                  <td class="green">+1.8%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade show active" id="all" role="tabpanel">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Broker</th>
+                  <th>Rating</th>
+                  <th>Commission</th>
+                  <th>Min Deposit</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for broker in brokers %}
+                  <tr>
+                    <td><a href="{% url 'broker_detail' broker.id %}">{{ broker.name }}</a></td>
+                    <td>{{ broker.rating }}/5</td>
+                    <td>{{ broker.commission_rate }}%</td>
+                    <td>${{ broker.minimum_deposit }}</td>
+                  </tr>
+                {% empty %}
+                  <tr>
+                    <td colspan="4">No brokers available yet.</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade show" id="stocks" role="tabpanel">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Symbol</th>
+                  <th>Current Price</th>
+                  <th>Change</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in market_data %}
+                  <tr>
+                    <td>{{ item.symbol }}</td>
+                    <td>{{ item.current_price }}</td>
+                    <td>{% if item.current_price >= item.low_price %}<span class="green">Active</span>{% else %}<span class="red">Watch</span>{% endif %}</td>
+                  </tr>
+                {% empty %}
+                  <tr>
+                    <td colspan="3">No market data available.</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade show" id="forex" role="tabpanel">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Symbol</th>
+                  <th>High</th>
+                  <th>Low</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in market_data %}
+                  <tr>
+                    <td>{{ item.symbol }}</td>
+                    <td>{{ item.high_price }}</td>
+                    <td>{{ item.low_price }}</td>
+                  </tr>
+                {% empty %}
+                  <tr>
+                    <td colspan="3">No market data available.</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade show" id="crypto" role="tabpanel">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Symbol</th>
+                  <th>Volume</th>
+                  <th>Updated</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in market_data %}
+                  <tr>
+                    <td>{{ item.symbol }}</td>
+                    <td>{{ item.volume }}</td>
+                    <td>{{ item.last_updated }}</td>
+                  </tr>
+                {% empty %}
+                  <tr>
+                    <td colspan="3">No market data available.</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="main-chart mb15">
+        <div class="tradingview-widget-container">
+          <div id="tradingview_e8053"></div>
+          <script src="https://s3.tradingview.com/tv.js"></script>
+          <script>
+            new TradingView.widget({
+              "width": "100%",
+              "height": 550,
+              "symbol": "BITSTAMP:BTCUSD",
+              "interval": "D",
+              "timezone": "Etc/UTC",
+              "theme": "Light",
+              "style": "1",
+              "locale": "en",
+              "toolbar_bg": "#f1f3f6",
+              "enable_publishing": false,
+              "withdateranges": true,
+              "hide_side_toolbar": false,
+              "allow_symbol_change": true,
+              "show_popup_button": true,
+              "popup_width": "1000",
+              "popup_height": "650",
+              "container_id": "tradingview_e8053"
+            });
+          </script>
+        </div>
+      </div>
+
+      <div class="market-trade">
+        <ul class="nav nav-pills" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="pill" href="#pills-trade-limit" role="tab" aria-selected="true">Limit</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#pills-market" role="tab" aria-selected="false">Market</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#pills-stop-limit" role="tab" aria-selected="false">Stop Limit</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#pills-stop-market" role="tab" aria-selected="false">Stop Market</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane fade show active" id="pills-trade-limit" role="tabpanel">
+            <div class="d-flex justify-content-between">
+              <div class="market-trade-buy">
+                <form method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="order_type" value="buy">
+                  <div class="input-group">
+                    <input type="text" class="form-control" name="symbol" placeholder="Symbol">
+                    <div class="input-group-append">
+                      <span class="input-group-text">SYM</span>
+                    </div>
+                  </div>
+                  <div class="input-group">
+                    <input type="number" class="form-control" name="price" placeholder="Price" step="0.01" min="0.01">
+                    <div class="input-group-append">
+                      <span class="input-group-text">USD</span>
+                    </div>
+                  </div>
+                  <div class="input-group">
+                    <input type="number" class="form-control" name="quantity" placeholder="Amount" min="1">
+                    <div class="input-group-append">
+                      <span class="input-group-text">Qty</span>
+                    </div>
+                  </div>
+                  <p>Available: <span>${{ account.balance }}</span></p>
+                  <button class="btn buy" type="submit">Buy</button>
+                </form>
+              </div>
+              <div class="market-trade-sell">
+                <form method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="order_type" value="sell">
+                  <div class="input-group">
+                    <input type="text" class="form-control" name="symbol" placeholder="Symbol">
+                    <div class="input-group-append">
+                      <span class="input-group-text">SYM</span>
+                    </div>
+                  </div>
+                  <div class="input-group">
+                    <input type="number" class="form-control" name="price" placeholder="Price" step="0.01" min="0.01">
+                    <div class="input-group-append">
+                      <span class="input-group-text">USD</span>
+                    </div>
+                  </div>
+                  <div class="input-group">
+                    <input type="number" class="form-control" name="quantity" placeholder="Amount" min="1">
+                    <div class="input-group-append">
+                      <span class="input-group-text">Qty</span>
+                    </div>
+                  </div>
+                  <p>Available: <span>${{ account.balance }}</span></p>
+                  <button class="btn sell" type="submit">Sell</button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane fade" id="pills-market" role="tabpanel">
+            <p class="p-3 mb-0">Market orders are not implemented yet in this MVP. Use the Buy or Sell form in the Limit tab.</p>
+          </div>
+          <div class="tab-pane fade" id="pills-stop-limit" role="tabpanel">
+            <p class="p-3 mb-0">Stop limit orders are not implemented yet in this MVP.</p>
+          </div>
+          <div class="tab-pane fade" id="pills-stop-market" role="tabpanel">
+            <p class="p-3 mb-0">Stop market orders are not implemented yet in this MVP.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="order-book mb15">
+        <h2 class="heading">Order Book</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Price</th>
+              <th>Qty</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in market_data|slice:":8" %}
+              <tr class="{% cycle 'red-bg-20' 'green-bg-20' %}">
+                <td>{{ item.current_price }}</td>
+                <td>{{ item.volume }}</td>
+                <td>{% if item.current_price >= item.low_price %}<span class="green">Open</span>{% else %}<span class="red">Watch</span>{% endif %}</td>
+              </tr>
+            {% empty %}
+              <tr>
+                <td colspan="3">No data</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="market-history">
+        <ul class="nav nav-pills" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="pill" href="#recent-trades" role="tab" aria-selected="true">Recent Trades</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#market-depth" role="tab" aria-selected="false">Market Depth</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane fade show active" id="recent-trades" role="tabpanel">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Price</th>
+                  <th>Volume</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in market_data|slice:":14" %}
+                  <tr>
+                    <td>{{ item.last_updated|time:"H:i:s" }}</td>
+                    <td class="{% if item.current_price >= item.low_price %}green{% else %}red{% endif %}">{{ item.current_price }}</td>
+                    <td>{{ item.volume }}</td>
+                  </tr>
+                {% empty %}
+                  <tr>
+                    <td colspan="3">No data</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade" id="market-depth" role="tabpanel">
+            <div class="depth-chart-container">
+              <div class="depth-chart-inner">
+                <div id="lightDepthChart">Market depth data is not configured yet.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="market-news mt15">
+        <h2 class="heading">Market News</h2>
+        <ul>
+          <li><a href="#!"><strong>Markets are active today</strong> Review broker pricing, chart activity, and recent updates before placing trades.<span>{{ now|default:"Today" }}</span></a></li>
+          <li><a href="#!"><strong>Instant order placement</strong> Orders are submitted immediately from the exchange form.<span>{{ now|default:"Today" }}</span></a></li>
+          <li><a href="#!"><strong>Broker list updated</strong> Compare commission rates and minimum deposits from the brokers page.<span>{{ now|default:"Today" }}</span></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-md-9">
+      <div class="market-history market-order mt15">
+        <ul class="nav nav-pills" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="pill" href="#open-orders" role="tab" aria-selected="true">Open Orders</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#stop-orders" role="tab" aria-selected="false">Closed Orders</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#order-history" role="tab" aria-selected="false">Order History</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#trade-history" role="tab" aria-selected="false">Balance</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane fade show active" id="open-orders" role="tabpanel">
+            <ul class="d-flex justify-content-between market-order-item">
+              <li>Time</li>
+              <li>Symbol</li>
+              <li>Type</li>
+              <li>Price</li>
+              <li>Amount</li>
+              <li>Status</li>
+            </ul>
+            <span class="no-data">
+              <i class="icon ion-md-document"></i>
+              View submitted orders from the account summary page.
+            </span>
+          </div>
+          <div class="tab-pane fade" id="stop-orders" role="tabpanel">
+            <span class="no-data"><i class="icon ion-md-document"></i> Closed orders are not surfaced here yet.</span>
+          </div>
+          <div class="tab-pane fade" id="order-history" role="tabpanel">
+            <span class="no-data"><i class="icon ion-md-document"></i> Order history is available through account summary.</span>
+          </div>
+          <div class="tab-pane fade" id="trade-history" role="tabpanel">
+            <span class="no-data"><i class="icon ion-md-document"></i> Current balance: ${{ account.balance }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script src="{% static 'assets/js/amcharts-core.min.js' %}"></script>
+<script src="{% static 'assets/js/amcharts.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.mCustomScrollbar.js' %}"></script>
+<script src="{% static 'assets/js/custom.js' %}"></script>
+<script>
+  $('tbody, .market-news ul').mCustomScrollbar({
+    theme: 'minimal',
+  });
+</script>
+{% endblock content %}

@@ -1,0 +1,232 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid mtb15">
+  <!-- Profile Header -->
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <div class="card profile-header-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <div class="d-flex align-items-center">
+              <div style="width: 100px; height: 100px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 25px;">
+                <i class="icon ion-md-person" style="font-size: 50px;"></i>
+              </div>
+              <div>
+                <h1 class="mb-1" style="color: white;">{{ profile.full_name|default:request.user.username }}</h1>
+                <p class="mb-0" style="opacity: 0.9;">@{{ request.user.username }}</p>
+                <p class="mb-0" style="opacity: 0.9; font-size: 14px;">Account created {{ request.user.date_joined|date:"M d, Y" }}</p>
+              </div>
+            </div>
+            <div class="d-flex gap-2">
+              <a class="btn btn-light btn-sm" href="{% url 'users:profile_view' request.user.username %}">
+                <i class="icon ion-md-eye"></i> Public View
+              </a>
+              <a class="btn btn-outline-light btn-sm" href="{% url 'users:profile-update' %}">
+                <i class="icon ion-md-create"></i> Edit Profile
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Content -->
+  <div class="row">
+    <!-- Account Information Section -->
+    <div class="col-md-6 mb-4">
+      <div class="card h-100">
+        <div class="card-header" style="background-color: #f8f9fa; border-bottom: 2px solid #667eea;">
+          <h5 class="card-title mb-0">
+            <i class="icon ion-md-person-outline" style="color: #667eea; margin-right: 8px;"></i>
+            Personal Information
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="profile-field mb-3">
+            <label class="text-muted small" style="font-weight: 600; text-transform: uppercase; font-size: 11px;">Full Name</label>
+            <p class="mb-0 mt-1" style="font-size: 16px; font-weight: 500;">
+              {{ profile.full_name|default:"<span class='text-muted'>Not set</span>" }}
+            </p>
+          </div>
+          <hr>
+          <div class="profile-field mb-3">
+            <label class="text-muted small" style="font-weight: 600; text-transform: uppercase; font-size: 11px;">Username</label>
+            <p class="mb-0 mt-1" style="font-size: 16px; font-weight: 500;">
+              <i class="icon ion-md-at" style="color: #667eea;"></i> {{ request.user.username }}
+            </p>
+          </div>
+          <hr>
+          <div class="profile-field mb-3">
+            <label class="text-muted small" style="font-weight: 600; text-transform: uppercase; font-size: 11px;">Email Address</label>
+            <p class="mb-0 mt-1" style="font-size: 16px; font-weight: 500;">
+              <i class="icon ion-md-mail" style="color: #667eea;"></i> {{ request.user.email|default:"<span class='text-muted'>Not set</span>" }}
+            </p>
+          </div>
+          <hr>
+          <div class="profile-field">
+            <label class="text-muted small" style="font-weight: 600; text-transform: uppercase; font-size: 11px;">Phone Number</label>
+            <p class="mb-0 mt-1" style="font-size: 16px; font-weight: 500;">
+              <i class="icon ion-md-call" style="color: #667eea;"></i> {{ profile.phone_number|default:"<span class='text-muted'>Not set</span>" }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Details Section -->
+    <div class="col-md-6 mb-4">
+      <div class="card h-100">
+        <div class="card-header" style="background-color: #f8f9fa; border-bottom: 2px solid #764ba2;">
+          <h5 class="card-title mb-0">
+            <i class="icon ion-md-information-circle-outline" style="color: #764ba2; margin-right: 8px;"></i>
+            Additional Details
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="profile-field mb-3">
+            <label class="text-muted small" style="font-weight: 600; text-transform: uppercase; font-size: 11px;">Date of Birth</label>
+            <p class="mb-0 mt-1" style="font-size: 16px; font-weight: 500;">
+              <i class="icon ion-md-calendar" style="color: #764ba2;"></i> 
+              {% if profile.dob %}
+                {{ profile.dob|date:"M d, Y" }}
+              {% else %}
+                <span class="text-muted">Not set</span>
+              {% endif %}
+            </p>
+          </div>
+          <hr>
+          <div class="profile-field mb-3">
+            <label class="text-muted small" style="font-weight: 600; text-transform: uppercase; font-size: 11px;">Gender</label>
+            <p class="mb-0 mt-1" style="font-size: 16px; font-weight: 500;">
+              {% if profile.gender %}
+                <i class="icon ion-md-people" style="color: #764ba2;"></i> {{ profile.get_gender_display }}
+              {% else %}
+                <span class="text-muted">Not set</span>
+              {% endif %}
+            </p>
+          </div>
+          <hr>
+          <div class="profile-field mb-3">
+            <label class="text-muted small" style="font-weight: 600; text-transform: uppercase; font-size: 11px;">Withdrawal Limit</label>
+            <p class="mb-0 mt-1" style="font-size: 16px; font-weight: 500;">
+              <i class="icon ion-md-card" style="color: #764ba2;"></i> 
+              {% if profile.withdrawal_limit %}
+                ${{ profile.withdrawal_limit|floatformat:2 }}
+              {% else %}
+                <span class="text-muted">Not set</span>
+              {% endif %}
+            </p>
+          </div>
+          <hr>
+          <div class="profile-field">
+            <label class="text-muted small" style="font-weight: 600; text-transform: uppercase; font-size: 11px;">Account Status</label>
+            <p class="mb-0 mt-1">
+              {% if request.user.is_active %}
+                <span class="badge" style="background-color: #28a745; font-size: 12px; padding: 6px 12px;">
+                  <i class="icon ion-md-checkmark-circle"></i> Active
+                </span>
+              {% else %}
+                <span class="badge" style="background-color: #dc3545; font-size: 12px; padding: 6px 12px;">
+                  <i class="icon ion-md-close-circle"></i> Inactive
+                </span>
+              {% endif %}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Security Section -->
+  <div class="row">
+    <div class="col-md-12 mb-4">
+      <div class="card">
+        <div class="card-header" style="background-color: #f8f9fa; border-bottom: 2px solid #ff6b6b;">
+          <h5 class="card-title mb-0">
+            <i class="icon ion-md-lock" style="color: #ff6b6b; margin-right: 8px;"></i>
+            Security Settings
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="d-flex align-items-center p-3" style="background-color: #f8f9fa; border-radius: 8px; margin-bottom: 15px;">
+                <div style="width: 50px; height: 50px; background-color: {% if profile.two_factor_enabled %}#28a745{% else %}#e9ecef{% endif %}; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                  <i class="icon ion-md-shield" style="font-size: 24px; color: white;"></i>
+                </div>
+                <div>
+                  <h6 class="mb-0" style="font-weight: 600;">Two-Factor Authentication</h6>
+                  <p class="mb-0 text-muted small">
+                    {% if profile.two_factor_enabled %}
+                      <span style="color: #28a745;"><i class="icon ion-md-checkmark"></i> Enabled</span>
+                    {% else %}
+                      <span style="color: #ff6b6b;"><i class="icon ion-md-close"></i> Disabled</span>
+                    {% endif %}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex align-items-center p-3" style="background-color: #f8f9fa; border-radius: 8px; margin-bottom: 15px;">
+                <div style="width: 50px; height: 50px; background-color: #4a90e2; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                  <i class="icon ion-md-key" style="font-size: 24px; color: white;"></i>
+                </div>
+                <div>
+                  <h6 class="mb-0" style="font-weight: 600;">Password</h6>
+                  <p class="mb-0 text-muted small">Last updated 3 months ago</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="row">
+    <div class="col-md-12">
+      <div style="display: flex; gap: 10px; justify-content: flex-end;">
+        <a class="btn btn-outline-secondary" href="{% url 'users:profile-update' %}">
+          <i class="icon ion-md-create"></i> Update Profile
+        </a>
+        <a class="btn btn-outline-danger" href="{% url 'users:logout' %}">
+          <i class="icon ion-md-log-out"></i> Logout
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .profile-header-card {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profile-field {
+    position: relative;
+  }
+  
+  .profile-field label {
+    letter-spacing: 0.5px;
+  }
+  
+  .card {
+    border: 1px solid #e9ecef;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+  }
+  
+  .card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .badge {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+</style>
+{% endblock content %}

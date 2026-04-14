@@ -1,0 +1,1 @@
+web: gunicorn brokerage_platform.wsgi:application

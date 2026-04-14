@@ -1,0 +1,18 @@
+{% extends "main.html" %}
+
+{% block content %}
+<section class="card mx-auto" style="max-width: 32rem;">
+    <div class="card-body">
+        <h1 class="card-title">Verify Trade</h1>
+        <p class="text-muted">Enter the 6-digit verification code sent to your email for this pending order.</p>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="security_code">Security Code</label>
+                <input id="security_code" name="security_code" maxlength="6" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Confirm Order</button>
+        </form>
+    </div>
+</section>
+{% endblock content %}

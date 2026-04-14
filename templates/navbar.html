@@ -1,0 +1,72 @@
+{% load static %}
+<header class="tf-nav-wrap mb-4">
+    <nav class="navbar navbar-expand-lg tf-nav">
+        <a class='navbar-brand font-weight-bold tf-brand' href="{% url 'broker' %}">
+            <span class="tf-brand-mark">TF</span>
+            <span class="tf-brand-text">TradeFlow</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#headerMenu"
+            aria-controls="headerMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="icon ion-md-menu"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="headerMenu">
+            <ul class="navbar-nav mr-auto tf-nav-links">
+                <li class="nav-item">
+                    <a class="nav-link tf-nav-link" href="{% url 'broker' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link tf-nav-link" href="{% url 'exchange' %}">Exchange</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link tf-nav-link" href="{% url 'brokers' %}">Brokers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link tf-nav-link" href="{% url 'market-overview' %}">Market Overview</a>
+                </li>
+                {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link tf-nav-link" href="{% url 'account-summary' %}">Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link tf-nav-link" href="{% url 'wallet' %}">Wallet</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link tf-nav-link" href="{% url 'users:profile' %}">Profile</a>
+                </li>
+                {% if request.user.is_staff or request.user.is_superuser %}
+                <li class="nav-item">
+                    <a class="nav-link tf-nav-link" href="{% url 'admin-wallet-dashboard' %}">Wallet Control</a>
+                </li>
+                {% endif %}
+                {% endif %}
+            </ul>
+
+            <ul class="navbar-nav ml-auto align-items-center tf-nav-actions">
+                {% if request.user.is_authenticated %}
+                    {% if request.user.tradeflow_account %}
+                        <li class="nav-item mr-2">
+                            <span class="tf-balance-pill">
+                                <i class="icon ion-md-wallet"></i>
+                                ${{ request.user.tradeflow_account.balance }}
+                            </span>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item d-flex align-items-center mr-2">
+                        <span class="tf-user-chip">{{ request.user.username }}</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="tf-btn tf-btn-dark" href="{% url 'users:logout' %}">Logout</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item mr-2">
+                        <a class='tf-btn tf-btn-ghost' href="{% url 'users:login' %}">Sign In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class='tf-btn tf-btn-primary' href="{% url 'users:signup' %}">Get Started</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+</header>

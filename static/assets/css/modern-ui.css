@@ -1,0 +1,438 @@
+.tf-nav-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.tf-nav {
+    border-radius: 18px;
+    margin: 0.5rem auto;
+    padding: 0.7rem 1rem;
+    background: linear-gradient(120deg, rgba(12, 20, 45, 0.92), rgba(31, 68, 148, 0.92));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 12px 30px rgba(17, 30, 65, 0.25);
+}
+
+.tf-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: #fff;
+}
+
+.tf-brand:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.tf-brand-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    background: linear-gradient(135deg, #59c9ff, #6a7cff);
+    color: #fff;
+}
+
+.tf-brand-text {
+    font-weight: 700;
+    letter-spacing: 0.01em;
+}
+
+.tf-nav-link {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-weight: 500;
+    border-radius: 10px;
+    padding: 0.45rem 0.75rem !important;
+    transition: all 0.2s ease;
+}
+
+.tf-nav-link:hover {
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.tf-nav-actions {
+    gap: 0.5rem;
+}
+
+.tf-balance-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-radius: 999px;
+    padding: 0.35rem 0.8rem;
+    font-weight: 600;
+    color: #f4f9ff;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.tf-user-chip {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.9rem;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.tf-btn {
+    display: inline-block;
+    border-radius: 10px;
+    padding: 0.45rem 0.85rem;
+    font-weight: 600;
+    border: 1px solid transparent;
+    transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.tf-btn:hover {
+    transform: translateY(-1px);
+    text-decoration: none;
+}
+
+.tf-btn-primary {
+    color: #fff;
+    background: linear-gradient(135deg, #2f80ed, #56ccf2);
+    box-shadow: 0 10px 22px rgba(59, 130, 246, 0.35);
+}
+
+.tf-btn-primary:hover {
+    color: #fff;
+}
+
+.tf-btn-ghost {
+    color: #f8fbff;
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.tf-btn-ghost:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.tf-btn-dark {
+    color: #fff;
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.tf-btn-dark:hover {
+    color: #fff;
+}
+
+.tf-account-hero {
+    border-radius: 18px;
+    padding: 1.5rem;
+    background: radial-gradient(circle at 12% 20%, #e7efff 0, #f8fbff 35%, #edf5ff 100%);
+    border: 1px solid rgba(87, 128, 210, 0.18);
+}
+
+.tf-account-hero-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.tf-account-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.tf-kicker {
+    display: inline-block;
+    border-radius: 999px;
+    padding: 0.22rem 0.62rem;
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #2f5fb5;
+    background: rgba(60, 116, 217, 0.12);
+}
+
+.tf-stat-card {
+    height: 100%;
+    border-radius: 16px;
+    padding: 1rem 1.1rem;
+    border: 1px solid rgba(90, 127, 199, 0.2);
+    background: #fff;
+    box-shadow: 0 8px 22px rgba(14, 39, 84, 0.08);
+}
+
+.tf-stat-label {
+    color: #6b7692;
+    font-size: 0.86rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.tf-panel {
+    border-radius: 16px;
+    border: 1px solid rgba(90, 127, 199, 0.2);
+    background: #fff;
+    box-shadow: 0 8px 22px rgba(14, 39, 84, 0.08);
+}
+
+.tf-panel-header {
+    border-bottom: 1px solid rgba(90, 127, 199, 0.16);
+    padding: 0.9rem 1.1rem;
+}
+
+.tf-panel-body {
+    padding: 1rem 1.1rem;
+}
+
+.tf-table-wrap {
+    border-radius: 12px;
+    border: 1px solid rgba(90, 127, 199, 0.14);
+    overflow: hidden;
+}
+
+.tf-modern-table {
+    margin-bottom: 0;
+}
+
+.tf-modern-table thead th {
+    background: #f4f7ff;
+    border: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #5a6483;
+}
+
+.tf-modern-table tbody td {
+    border-top-color: rgba(90, 127, 199, 0.12);
+}
+
+.tf-status-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding: 0.22rem 0.6rem;
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: #2d5ea9;
+    background: rgba(73, 126, 214, 0.14);
+}
+
+.tf-status-success {
+    color: #1f7a4f;
+    background: rgba(39, 174, 96, 0.18);
+}
+
+.tf-status-danger {
+    color: #9d2c2c;
+    background: rgba(235, 87, 87, 0.18);
+}
+
+.tf-status-muted {
+    color: #5e6785;
+    background: rgba(117, 128, 156, 0.16);
+}
+
+@media (max-width: 991px) {
+    .tf-account-hero-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+.tf-public-profile {
+    border-radius: 18px;
+    border: 1px solid rgba(87, 128, 210, 0.2);
+    background: linear-gradient(135deg, #f7fbff 0%, #edf4ff 50%, #eaf2ff 100%);
+    padding: 1.25rem;
+}
+
+.tf-public-hero {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.tf-public-avatar {
+    width: 92px;
+    height: 92px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 2px solid rgba(92, 133, 213, 0.28);
+    box-shadow: 0 10px 24px rgba(20, 48, 98, 0.15);
+    background: #fff;
+}
+
+.tf-public-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.tf-public-head {
+    flex: 1;
+    min-width: 0;
+}
+
+.tf-public-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tf-btn-light {
+    color: #1d3f7e;
+    background: rgba(255, 255, 255, 0.7);
+    border-color: rgba(92, 133, 213, 0.3);
+}
+
+.tf-btn-light:hover {
+    color: #1d3f7e;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.tf-exchange-head {
+    border-radius: 18px;
+    padding: 1.4rem 1.5rem;
+    border: 1px solid rgba(87, 128, 210, 0.2);
+    background: linear-gradient(135deg, #f5f9ff 0%, #edf4ff 45%, #e8f0ff 100%);
+}
+
+.tf-exchange-head-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.tf-exchange-head-metrics {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+}
+
+.tf-ex-metric {
+    border-radius: 12px;
+    padding: 0.55rem 0.85rem;
+    background: #fff;
+    border: 1px solid rgba(87, 128, 210, 0.2);
+    box-shadow: 0 8px 18px rgba(19, 44, 91, 0.08);
+}
+
+.tf-ex-metric span {
+    display: block;
+    font-size: 0.74rem;
+    letter-spacing: 0.05em;
+    color: #6c7894;
+    text-transform: uppercase;
+}
+
+.tf-ex-metric strong {
+    font-size: 1.05rem;
+    color: #16356f;
+}
+
+.tf-exchange-page .market-pairs,
+.tf-exchange-page .main-chart,
+.tf-exchange-page .market-trade,
+.tf-exchange-page .order-book,
+.tf-exchange-page .market-history,
+.tf-exchange-page .market-news,
+.tf-exchange-page .market-order {
+    border-radius: 16px;
+    border: 1px solid rgba(90, 127, 199, 0.18);
+    background: #fff;
+    box-shadow: 0 8px 22px rgba(14, 39, 84, 0.08);
+}
+
+.tf-exchange-page .market-pairs,
+.tf-exchange-page .market-trade,
+.tf-exchange-page .order-book,
+.tf-exchange-page .market-history,
+.tf-exchange-page .market-news,
+.tf-exchange-page .market-order {
+    padding: 0.9rem;
+}
+
+.tf-exchange-page .main-chart {
+    overflow: hidden;
+}
+
+.tf-exchange-page .nav-pills .nav-link {
+    border-radius: 10px;
+    color: #4f5f82;
+    font-weight: 500;
+}
+
+.tf-exchange-page .nav-pills .nav-link.active {
+    background: linear-gradient(135deg, #2f80ed, #56ccf2);
+    box-shadow: 0 10px 18px rgba(59, 130, 246, 0.28);
+}
+
+.tf-exchange-page .input-group-text {
+    background: #f4f7ff;
+    border-color: rgba(90, 127, 199, 0.24);
+}
+
+.tf-exchange-page .form-control {
+    border-color: rgba(90, 127, 199, 0.24);
+}
+
+.tf-exchange-page .table thead th {
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #5a6483;
+    border-top: 0;
+    background: #f4f7ff;
+}
+
+.tf-exchange-page .table td {
+    border-top-color: rgba(90, 127, 199, 0.14);
+}
+
+.tf-exchange-page .market-news ul li a {
+    border-radius: 10px;
+    padding: 0.75rem;
+    transition: background 0.2s ease;
+}
+
+.tf-exchange-page .market-news ul li a:hover {
+    background: #f4f7ff;
+    text-decoration: none;
+}
+
+.tf-exchange-page .market-trade .btn.buy {
+    color: #fff;
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    border: none;
+}
+
+.tf-exchange-page .market-trade .btn.sell {
+    color: #fff;
+    background: linear-gradient(135deg, #eb5757, #ff7676);
+    border: none;
+}
+
+@media (max-width: 991px) {
+    .tf-exchange-head-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .tf-public-hero {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .tf-public-actions {
+        width: 100%;
+    }
+}

@@ -1,0 +1,110 @@
+{% extends "main.html" %}
+
+{% block content %}
+<section class="tf-account-hero mb-4">
+    <div class="tf-account-hero-content">
+        <div>
+            <p class="tf-kicker mb-2">Portfolio</p>
+            <h1 class="mb-1">Account Summary</h1>
+            <p class="mb-0 text-muted">Track your capital, orders, and executed trades in one view.</p>
+        </div>
+        <div class="tf-account-actions">
+            <a class="tf-btn tf-btn-primary mr-2" href="{% url 'wallet' %}">Open Wallet</a>
+            <a class="tf-btn tf-btn-ghost" href="{% url 'exchange' %}">Go To Exchange</a>
+        </div>
+    </div>
+</section>
+
+<section class="row mb-4">
+    <div class="col-md-4 mb-3">
+        <div class="tf-stat-card">
+            <p class="tf-stat-label mb-1">Current Balance</p>
+            <h3 class="mb-0">${{ account.balance }}</h3>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="tf-stat-card">
+            <p class="tf-stat-label mb-1">Total Withdrawals</p>
+            <h3 class="mb-0">${{ account.total_withdrawals }}</h3>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="tf-stat-card">
+            <p class="tf-stat-label mb-1">Withdrawal Limit</p>
+            <h3 class="mb-0">${{ account.withdrawal_limit }}</h3>
+        </div>
+    </div>
+</section>
+
+<section class="tf-panel mb-4">
+    <div class="tf-panel-header">
+        <h2 class="h5 mb-0">Orders</h2>
+    </div>
+    <div class="tf-panel-body">
+        {% if orders %}
+            <div class="table-responsive tf-table-wrap">
+                <table class="table tf-modern-table">
+                    <thead>
+                        <tr>
+                            <th>Symbol</th>
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                            <tr>
+                                <td>{{ order.symbol }}</td>
+                                <td>{{ order.get_order_type_display }}</td>
+                                <td>{{ order.price }}</td>
+                                <td>{{ order.quantity }}</td>
+                                <td><span class="tf-status-pill">{{ order.get_status_display }}</span></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="mb-0">No orders yet.</p>
+        {% endif %}
+    </div>
+</section>
+
+<section class="tf-panel">
+    <div class="tf-panel-header">
+        <h2 class="h5 mb-0">Trades</h2>
+    </div>
+    <div class="tf-panel-body">
+        {% if trades %}
+            <div class="table-responsive tf-table-wrap">
+                <table class="table tf-modern-table">
+                    <thead>
+                        <tr>
+                            <th>Symbol</th>
+                            <th>Broker</th>
+                            <th>Trade Price</th>
+                            <th>Quantity</th>
+                            <th>Commission</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for trade in trades %}
+                            <tr>
+                                <td>{{ trade.order.symbol }}</td>
+                                <td>{{ trade.broker.name }}</td>
+                                <td>{{ trade.trade_price }}</td>
+                                <td>{{ trade.quantity }}</td>
+                                <td>{{ trade.commission }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="mb-0">No trades yet.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock content %}

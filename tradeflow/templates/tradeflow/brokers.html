@@ -1,0 +1,238 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block content %}
+<div class="markets ptb70">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="markets-container">
+          <div class="markets-content">
+            <h2>Broker Index</h2>
+            <p>{{ brokers|length }}</p>
+            <span class="green"> Available Brokers</span>
+          </div>
+          <div class="markets-chart">
+            <div id="marketsChartBtcLight"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="markets-container">
+          <div class="markets-content">
+            <h2>Avg Rating</h2>
+            <p>
+              {% if brokers %}
+                {{ brokers.0.rating }}
+              {% else %}
+                0.0
+              {% endif %}
+            </p>
+            <span class="green"> Market Snapshot</span>
+          </div>
+          <div class="markets-chart">
+            <div id="marketsChartEthLight"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="markets-container">
+          <div class="markets-content">
+            <h2>Min Deposit</h2>
+            <p>
+              {% if brokers %}
+                ${{ brokers.0.minimum_deposit }}
+              {% else %}
+                $0.00
+              {% endif %}
+            </p>
+            <span class="red"> Entry Level</span>
+          </div>
+          <div class="markets-chart">
+            <div id="marketsChartLtcLight"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="markets-pair-list">
+          <ul class="nav nav-pills" id="pills-tab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="pill" href="#STAR" role="tab" aria-selected="false"><i class="icon ion-md-star"></i> Favorites</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="pill" href="#BTC" role="tab" aria-selected="true">Brokers</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="pill" href="#KCS" role="tab" aria-selected="true">Commission</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="pill" href="#USDT" role="tab" aria-selected="true">Deposits</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="pill" href="#ALTS" role="tab" aria-selected="true">Account Types</a>
+            </li>
+          </ul>
+
+          <div class="tab-content">
+            <div class="tab-pane fade show" id="STAR" role="tabpanel">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Broker</th>
+                    <th>Profile</th>
+                    <th>Rating</th>
+                    <th>Commission</th>
+                    <th>Deposit</th>
+                    <th>Regulation</th>
+                    <th>Account Types</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for broker in brokers|slice:":5" %}
+                    <tr>
+                      <td><i class="icon ion-md-star"></i> <a href="{% url 'broker_detail' broker.id %}">{{ broker.name }}</a></td>
+                      <td><img src="{% static 'assets/img/icon/1.png' %}" alt="broker"> {{ broker.name }}</td>
+                      <td>{{ broker.rating }}/5</td>
+                      <td>{{ broker.commission_rate }}%</td>
+                      <td>${{ broker.minimum_deposit }}</td>
+                      <td>{{ broker.regulation }}</td>
+                      <td>{{ broker.account_types }}</td>
+                    </tr>
+                  {% empty %}
+                    <tr>
+                      <td colspan="7">No brokers available.</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+
+            <div class="tab-pane fade show active" id="BTC" role="tabpanel">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Broker</th>
+                    <th>Profile</th>
+                    <th>Rating</th>
+                    <th>Commission</th>
+                    <th>Deposit</th>
+                    <th>Regulation</th>
+                    <th>Account Types</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for broker in brokers %}
+                    <tr>
+                      <td><i class="icon ion-md-star"></i> <a href="{% url 'broker_detail' broker.id %}">{{ broker.name }}</a></td>
+                      <td><img src="{% static 'assets/img/icon/1.png' %}" alt="broker"> {{ broker.name }}</td>
+                      <td>{{ broker.rating }}/5</td>
+                      <td class="{% if broker.commission_rate <= 1 %}green{% else %}red{% endif %}">{{ broker.commission_rate }}%</td>
+                      <td>${{ broker.minimum_deposit }}</td>
+                      <td>{{ broker.regulation }}</td>
+                      <td>{{ broker.account_types }}</td>
+                    </tr>
+                  {% empty %}
+                    <tr>
+                      <td colspan="7">No brokers available yet.</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+
+            <div class="tab-pane fade show" id="KCS" role="tabpanel">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Broker</th>
+                    <th>Commission</th>
+                    <th>Rating</th>
+                    <th>Regulation</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for broker in brokers %}
+                    <tr>
+                      <td><a href="{% url 'broker_detail' broker.id %}">{{ broker.name }}</a></td>
+                      <td class="{% if broker.commission_rate <= 1 %}green{% else %}red{% endif %}">{{ broker.commission_rate }}%</td>
+                      <td>{{ broker.rating }}/5</td>
+                      <td>{{ broker.regulation }}</td>
+                    </tr>
+                  {% empty %}
+                    <tr>
+                      <td colspan="4">No brokers available yet.</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+
+            <div class="tab-pane fade show" id="USDT" role="tabpanel">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Broker</th>
+                    <th>Minimum Deposit</th>
+                    <th>Commission</th>
+                    <th>Account Types</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for broker in brokers %}
+                    <tr>
+                      <td><a href="{% url 'broker_detail' broker.id %}">{{ broker.name }}</a></td>
+                      <td>${{ broker.minimum_deposit }}</td>
+                      <td>{{ broker.commission_rate }}%</td>
+                      <td>{{ broker.account_types }}</td>
+                    </tr>
+                  {% empty %}
+                    <tr>
+                      <td colspan="4">No brokers available yet.</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+
+            <div class="tab-pane fade show" id="ALTS" role="tabpanel">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Broker</th>
+                    <th>Account Types</th>
+                    <th>Rating</th>
+                    <th>Open</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for broker in brokers %}
+                    <tr>
+                      <td><a href="{% url 'broker_detail' broker.id %}">{{ broker.name }}</a></td>
+                      <td>{{ broker.account_types }}</td>
+                      <td>{{ broker.rating }}/5</td>
+                      <td><a href="{% url 'broker_detail' broker.id %}">View</a></td>
+                    </tr>
+                  {% empty %}
+                    <tr>
+                      <td colspan="4">No brokers available yet.</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <a href="{% url 'exchange' %}" class="load-more btn">Trade Now <i class="icon ion-md-arrow-forward"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{% static 'assets/js/amcharts-core.min.js' %}"></script>
+<script src="{% static 'assets/js/amcharts.min.js' %}"></script>
+<script src="{% static 'assets/js/custom.js' %}"></script>
+{% endblock content %}

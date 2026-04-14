@@ -1,0 +1,97 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block content %}
+<section class="tf-public-profile mb-4">
+    <div class="tf-public-hero">
+        <div class="tf-public-avatar">
+            {% if profile.profile_image %}
+                <img src="{{ profile.profile_image.url }}" alt="{{ profile.user.username }} avatar">
+            {% else %}
+                <img src="{% static 'assets/img/avatar.svg' %}" alt="default avatar">
+            {% endif %}
+        </div>
+        <div class="tf-public-head">
+            <p class="tf-kicker mb-2">Public Profile</p>
+            <h1 class="mb-1">{{ profile.full_name|default:profile.user.username }}</h1>
+            <p class="text-muted mb-0">@{{ profile.user.username }}</p>
+        </div>
+        <div class="tf-public-actions">
+            <a class="tf-btn tf-btn-ghost tf-btn-light" href="{% url 'users:profile' %}">Back To Profile</a>
+            {% if request.user.username == profile.user.username %}
+                <a class="tf-btn tf-btn-primary" href="{% url 'users:profile-update' %}">Edit Profile</a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="row">
+    <div class="col-lg-8 mb-4">
+        <div class="tf-panel h-100">
+            <div class="tf-panel-header">
+                <h2 class="h5 mb-0">Personal Information</h2>
+            </div>
+            <div class="tf-panel-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <p class="tf-stat-label mb-1">Full Name</p>
+                        <p class="mb-0">{{ profile.full_name|default:"Not set" }}</p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <p class="tf-stat-label mb-1">Username</p>
+                        <p class="mb-0">{{ profile.user.username }}</p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <p class="tf-stat-label mb-1">Email</p>
+                        <p class="mb-0">{{ profile.user.email|default:"Not set" }}</p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <p class="tf-stat-label mb-1">Phone</p>
+                        <p class="mb-0">{{ profile.phone_number|default:"Not set" }}</p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <p class="tf-stat-label mb-1">Gender</p>
+                        <p class="mb-0">{{ profile.get_gender_display|default:"Not set" }}</p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <p class="tf-stat-label mb-1">Date Of Birth</p>
+                        <p class="mb-0">{% if profile.dob %}{{ profile.dob|date:"M d, Y" }}{% else %}Not set{% endif %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 mb-4">
+        <div class="tf-panel mb-3">
+            <div class="tf-panel-header">
+                <h2 class="h5 mb-0">Security</h2>
+            </div>
+            <div class="tf-panel-body">
+                <div class="mb-3">
+                    <p class="tf-stat-label mb-1">Two Factor Authentication</p>
+                    <span class="tf-status-pill {% if profile.two_factor_enabled %}tf-status-success{% else %}tf-status-muted{% endif %}">
+                        {% if profile.two_factor_enabled %}Enabled{% else %}Disabled{% endif %}
+                    </span>
+                </div>
+                <div>
+                    <p class="tf-stat-label mb-1">Account Status</p>
+                    <span class="tf-status-pill {% if profile.user.is_active %}tf-status-success{% else %}tf-status-danger{% endif %}">
+                        {% if profile.user.is_active %}Active{% else %}Inactive{% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="tf-panel">
+            <div class="tf-panel-header">
+                <h2 class="h5 mb-0">Limits</h2>
+            </div>
+            <div class="tf-panel-body">
+                <p class="tf-stat-label mb-1">Withdrawal Limit</p>
+                <h3 class="mb-0">${{ profile.withdrawal_limit|default:"0.00" }}</h3>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

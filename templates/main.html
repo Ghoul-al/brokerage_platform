@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TadeFlow</title>
+    {% load static %} 
+    <link rel="icon" href="{% static "assets/img/favicon.png" %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static "assets/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/ionicons.min.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/style.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/modern-ui.css" %}">
+</head>
+<body>
+    {% include "navbar.html" %}
+    <main class="container py-4">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags|default:'info' }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+    <!-- Bootstrap and jQuery Scripts -->
+    <script src="{% static 'assets/js/jquery-3.4.1.min.js' %}"></script>
+    <script src="https://unpkg.com/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

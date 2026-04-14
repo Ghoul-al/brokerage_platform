@@ -1,0 +1,80 @@
+{% extends "main.html" %}
+
+{% block content %}
+{% include "users/partials/auth_styles.html" %}
+
+<section class="auth-shell">
+    <div class="auth-orb auth-orb-one"></div>
+    <div class="auth-orb auth-orb-two"></div>
+
+    <div class="auth-grid">
+        <aside class="auth-side">
+            <span class="auth-kicker"><i class="icon ion-md-lock"></i> TradeFlow Access</span>
+            <h1 class="auth-title">Welcome back to your trading workspace</h1>
+            <p class="auth-copy">Sign in with your username or email to continue monitoring markets and executing orders.</p>
+
+            <ul class="auth-points">
+                <li><i class="icon ion-md-checkmark-circle"></i><span>Session controls with optional "remember me" support.</span></li>
+                <li><i class="icon ion-md-checkmark-circle"></i><span>Real-time access to brokers, market data, and account tools.</span></li>
+                <li><i class="icon ion-md-checkmark-circle"></i><span>Built for desktop and mobile with a clean, focused layout.</span></li>
+            </ul>
+
+            <div class="auth-side-card">
+                Security tip: always log out when using a shared device.
+            </div>
+        </aside>
+
+        <article class="auth-card">
+            <p class="auth-card-kicker">Sign In</p>
+            <h2 class="auth-card-title">Access your account</h2>
+            <p class="auth-card-copy">Use your existing credentials to continue.</p>
+
+            <form method="post" action="{% url 'users:login' %}" class="auth-form">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="username" class="form-label">Username or Email</label>
+                    <input
+                        id="username"
+                        type="text"
+                        class="form-control auth-input"
+                        placeholder="you@example.com"
+                        name="username"
+                        value="{{ request.POST.username|default:'' }}"
+                        autocomplete="username"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input
+                        id="password"
+                        type="password"
+                        class="form-control auth-input"
+                        placeholder="Enter your password"
+                        name="password"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="form-check">
+                        <input id="remember-me" type="checkbox" class="form-check-input" name="remember_me">
+                        <label class="form-check-label" for="remember-me">Remember me</label>
+                    </div>
+                    <a href="#" class="auth-inline-link">Need help?</a>
+                </div>
+
+                <button type="submit" class="auth-btn">
+                    <i class="icon ion-md-log-in"></i>
+                    Sign In
+                </button>
+            </form>
+
+            <p class="auth-meta">Don&apos;t have an account? <a href="{% url 'users:signup' %}">Create one now</a></p>
+        </article>
+    </div>
+</section>
+{% endblock content %}

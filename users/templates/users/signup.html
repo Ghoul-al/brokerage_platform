@@ -1,0 +1,89 @@
+{% extends "main.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+{% include "users/partials/auth_styles.html" %}
+
+<section class="auth-shell">
+    <div class="auth-orb auth-orb-one"></div>
+    <div class="auth-orb auth-orb-two"></div>
+
+    <div class="auth-grid">
+        <aside class="auth-side">
+            <span class="auth-kicker"><i class="icon ion-md-flash"></i> Start Trading</span>
+            <h1 class="auth-title">Create your TradeFlow account in minutes</h1>
+            <p class="auth-copy">Set up your profile to access brokers, market intelligence, and wallet tools from one dashboard.</p>
+
+            <ul class="auth-points">
+                <li><i class="icon ion-md-checkmark-circle"></i><span>Unified view across exchange, wallet, and account activity.</span></li>
+                <li><i class="icon ion-md-checkmark-circle"></i><span>Profile and account records are initialized automatically on signup.</span></li>
+                <li><i class="icon ion-md-checkmark-circle"></i><span>Mobile-friendly onboarding with clear validation feedback.</span></li>
+            </ul>
+
+            <div class="auth-side-card">
+                Tip: choose a unique username and a strong password you do not reuse anywhere else.
+            </div>
+        </aside>
+
+        <article class="auth-card">
+            <p class="auth-card-kicker">Create Account</p>
+            <h2 class="auth-card-title">Join TradeFlow</h2>
+            <p class="auth-card-copy">Fill in your details below to register.</p>
+
+            <form method="post" class="auth-form" novalidate>
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="auth-non-field">
+                        {% for error in form.non_field_errors %}
+                            <div>{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <div class="form-group">
+                    <label for="{{ form.username.id_for_label }}" class="form-label">{{ form.username.label }}</label>
+                    {% render_field form.username class+="form-control auth-input" placeholder="trader_handle" autocomplete="username" %}
+                    {% for error in form.username.errors %}
+                        <div class="auth-error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.email.id_for_label }}" class="form-label">{{ form.email.label }}</label>
+                    {% render_field form.email class+="form-control auth-input" placeholder="you@example.com" autocomplete="email" %}
+                    {% for error in form.email.errors %}
+                        <div class="auth-error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.password1.id_for_label }}" class="form-label">{{ form.password1.label }}</label>
+                    {% render_field form.password1 class+="form-control auth-input" placeholder="Create a strong password" autocomplete="new-password" %}
+                    {% if form.password1.help_text %}
+                        <div class="auth-help">{{ form.password1.help_text }}</div>
+                    {% endif %}
+                    {% for error in form.password1.errors %}
+                        <div class="auth-error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.password2.id_for_label }}" class="form-label">{{ form.password2.label }}</label>
+                    {% render_field form.password2 class+="form-control auth-input" placeholder="Repeat your password" autocomplete="new-password" %}
+                    {% for error in form.password2.errors %}
+                        <div class="auth-error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <button type="submit" class="auth-btn">
+                    <i class="icon ion-md-person-add"></i>
+                    Create Account
+                </button>
+            </form>
+
+            <p class="auth-meta">Already have an account? <a href="{% url 'users:login' %}">Sign in here</a></p>
+        </article>
+    </div>
+</section>
+{% endblock content %}

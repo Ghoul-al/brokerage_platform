@@ -1,0 +1,110 @@
+{% extends "admin/base_site.html" %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <style>
+    .wallet-balance-wrapper {
+      overflow-x: auto;
+    }
+
+    .wallet-balance-table input {
+      min-width: 140px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .wallet-balance-table th,
+    .wallet-balance-table td {
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+  </style>
+{% endblock %}
+
+{% block breadcrumbs %}
+  <div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">Home</a>
+    &rsaquo;
+    <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
+    &rsaquo;
+    <a href="{% url 'admin:tradeflow_account_changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>
+    &rsaquo;
+    Wallet Balance Manager
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div id="content-main">
+    <p>
+      Edit user account cash balance and wallet balances here. Changes appear on each user's account and wallet pages.
+    </p>
+
+    <form method="post">
+      {% csrf_token %}
+      <div class="wallet-balance-wrapper">
+        <table id="result_list" class="wallet-balance-table">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Email</th>
+              <th>Cash Balance ($)</th>
+              {% for coin in coins %}
+                <th>{{ coin.code }} Total</th>
+                <th>{{ coin.code }} Available</th>
+              {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in rows %}
+              <tr>
+                <td>{{ row.account.user.username }}</td>
+                <td>{{ row.account.user.email|default:"-" }}</td>
+                <td>
+                  <input
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    name="account_{{ row.account.id }}_cash_balance"
+                    value="{{ row.account.balance }}"
+                    required
+                  >
+                </td>
+                {% for coin_data in row.coin_balances %}
+                  <td>
+                    <input
+                      type="number"
+                      min="0"
+                      step="0.00000001"
+                      name="account_{{ row.account.id }}_{{ coin_data.coin.code }}_total_balance"
+                      value="{{ coin_data.balance.total_balance }}"
+                      required
+                    >
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      min="0"
+                      step="0.00000001"
+                      name="account_{{ row.account.id }}_{{ coin_data.coin.code }}_available_balance"
+                      value="{{ coin_data.balance.available_balance }}"
+                      required
+                    >
+                  </td>
+                {% endfor %}
+              </tr>
+            {% empty %}
+              <tr>
+                <td colspan="99">No user accounts found.</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="submit-row">
+        <a href="{% url 'admin:tradeflow_account_changelist' %}" class="button">Back to Accounts</a>
+        <input type="submit" value="Save Wallet Balances" class="default">
+      </div>
+    </form>
+  </div>
+{% endblock %}

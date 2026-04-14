@@ -1,0 +1,571 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid mtb15">
+  <!-- Wallet Header -->
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <div class="card" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; border: none;">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <div class="d-flex align-items-center">
+              <div style="width: 80px; height: 80px; background: rgba(255,255,255,0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 25px;">
+                <i class="icon ion-md-wallet" style="font-size: 45px;"></i>
+              </div>
+              <div>
+                <h1 class="mb-2" style="color: white; font-weight: 700;">Your Wallet</h1>
+                <p class="mb-0" style="opacity: 0.9;">Manage your digital assets and transactions</p>
+              </div>
+            </div>
+            <div style="text-align: right;">
+              <div style="opacity: 0.9; font-size: 13px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;">Total Balance</div>
+              <h2 style="color: white; margin: 0; font-weight: 700;">${{ account.balance }}</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cryptocurrency Tabs -->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card" style="border: 1px solid #e9ecef; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);">
+        <div class="card-header" style="background-color: #f8f9fa; border-bottom: 2px solid #1e3c72; padding: 0;">
+          <ul class="nav nav-tabs card-header-tabs wallet-nav-tabs mb-0" id="walletTabs" role="tablist" style="border: none; padding: 15px 20px;">
+            <li class="nav-item">
+              <a class="nav-link active wallet-tab-link" id="btc-tab" data-toggle="tab" href="#coinBTC" role="tab" style="color: #495057; font-weight: 600; border: none; padding: 8px 16px;">
+                <i class="icon ion-logo-bitcoin" style="margin-right: 6px;"></i> BTC
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link wallet-tab-link" id="eth-tab" data-toggle="tab" href="#coinETH" role="tab" style="color: #495057; font-weight: 600; border: none; padding: 8px 16px;">
+                <i class="icon ion-md-disc" style="margin-right: 6px;"></i> ETH
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link wallet-tab-link" id="bnb-tab" data-toggle="tab" href="#coinBNB" role="tab" style="color: #495057; font-weight: 600; border: none; padding: 8px 16px;">
+                <i class="icon ion-md-disc" style="margin-right: 6px;"></i> BNB
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link wallet-tab-link" id="sol-tab" data-toggle="tab" href="#coinSOL" role="tab" style="color: #495057; font-weight: 600; border: none; padding: 8px 16px;">
+                <i class="icon ion-md-disc" style="margin-right: 6px;"></i> SOL
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="card-body" style="padding: 30px;">
+          <div class="tab-content">
+            <!-- BTC Tab (and other crypto tabs follow similar structure) -->
+            <div class="tab-pane fade show active" id="coinBTC" role="tabpanel">
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <div class="card h-100" style="border: 1px solid #e9ecef; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); border-top: 4px solid #f7931a;">
+                    <div class="card-header" style="background-color: #f8f9fa; border: none;">
+                      <h5 class="card-title mb-0">
+                        <i class="icon ion-md-wallet" style="color: #f7931a; margin-right: 8px;"></i>
+                        Balances
+                      </h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="balance-item mb-4 pb-4" style="border-bottom: 1px solid #e9ecef;">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div>
+                            <p class="text-muted small mb-1" style="font-weight: 600; text-transform: uppercase; font-size: 11px;">Total Equity</p>
+                            <h4 class="mb-0" style="color: #f7931a; font-weight: 700;">{{ crypto_balances.BTC.total_balance }} BTC</h4>
+                          </div>
+                          <div style="width: 50px; height: 50px; background-color: rgba(247, 147, 26, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                            <i class="icon ion-logo-bitcoin" style="color: #f7931a; font-size: 24px;"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="balance-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div>
+                            <p class="text-muted small mb-1" style="font-weight: 600; text-transform: uppercase; font-size: 11px;">Available Margin</p>
+                            <h4 class="mb-0" style="color: #f7931a; font-weight: 700;">{{ crypto_balances.BTC.available_balance }} BTC</h4>
+                          </div>
+                          <div style="width: 50px; height: 50px; background-color: rgba(247, 147, 26, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                            <i class="icon ion-md-checkmark" style="color: #f7931a; font-size: 24px;"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div style="display: flex; gap: 10px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e9ecef;">
+                        <button class="btn btn-sm" style="background-color: #28a745; color: white; border: none; flex: 1; font-weight: 600;">
+                          <i class="icon ion-md-arrow-round-down"></i> Deposit
+                        </button>
+                        <button class="btn btn-sm" style="background-color: #dc3545; color: white; border: none; flex: 1; font-weight: 600;">
+                          <i class="icon ion-md-arrow-round-up"></i> Withdraw
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <div class="card h-100" style="border: 1px solid #e9ecef; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); border-top: 4px solid #f7931a;">
+                    <div class="card-header" style="background-color: #f8f9fa; border: none;">
+                      <h5 class="card-title mb-0">
+                        <i class="icon ion-md-redo" style="color: #f7931a; margin-right: 8px;"></i>
+                        Wallet Deposit Address
+                      </h5>
+                    </div>
+                    <div class="card-body">
+                      <p class="text-muted small mb-3" style="line-height: 1.6;">Deposits to this address are unlimited. Note that you may not be able to withdraw all of your funds at once if you deposit more than your daily withdrawal limit.</p>
+                      <div style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 3px;">
+                        <input type="text" class="form-control" value="{{ crypto_balances.BTC.wallet_address|default:'Not set' }}" readonly style="background: white; border: 1px solid #dee2e6; padding: 10px; font-size: 12px;">
+                        <button class="btn btn-sm btn-primary mt-2" style="width: 100%; font-weight: 600;">
+                          <i class="icon ion-md-copy"></i> COPY ADDRESS
+                        </button>
+                      </div>
+                      <div style="text-align: center; margin-top: 15px;">
+                        <img src="{% static 'assets/img/qr-code-dark.svg' %}" alt="qr-code" style="width: 120px; height: 120px;">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 mb-4">
+                  <div class="card" style="border: 1px solid #e9ecef; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); border-top: 4px solid #495057;">
+                    <div class="card-header" style="background-color: #f8f9fa; border: none;">
+                      <h5 class="card-title mb-0">
+                        <i class="icon ion-md-time" style="color: #495057; margin-right: 8px;"></i>
+                        Latest Transactions
+                      </h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                          <thead>
+                            <tr style="background-color: #f8f9fa; border-bottom: 2px solid #dee2e6;">
+                              <th style="color: #495057; font-weight: 600; padding: 12px 8px;">No.</th>
+                              <th style="color: #495057; font-weight: 600; padding: 12px 8px;">Date</th>
+                              <th style="color: #495057; font-weight: 600; padding: 12px 8px;">Status</th>
+                              <th style="color: #495057; font-weight: 600; padding: 12px 8px; text-align: right;">Amount</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr style="border-bottom: 1px solid #e9ecef;">
+                              <td style="padding: 12px 8px;">1</td>
+                              <td style="padding: 12px 8px;">25-04-2019</td>
+                              <td style="padding: 12px 8px;"><span class="badge" style="background-color: #28a745; font-size: 11px; padding: 5px 10px;"><i class="icon ion-md-checkmark-circle-outline"></i> Confirmed</span></td>
+                              <td style="padding: 12px 8px; text-align: right; font-weight: 600; color: #28a745;">4.5454334 BTC</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e9ecef;">
+                              <td style="padding: 12px 8px;">2</td>
+                              <td style="padding: 12px 8px;">25-05-2019</td>
+                              <td style="padding: 12px 8px;"><span class="badge" style="background-color: #28a745; font-size: 11px; padding: 5px 10px;"><i class="icon ion-md-checkmark-circle-outline"></i> Confirmed</span></td>
+                              <td style="padding: 12px 8px; text-align: right; font-weight: 600; color: #28a745;">0.5484468 BTC</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e9ecef;">
+                              <td style="padding: 12px 8px;">3</td>
+                              <td style="padding: 12px 8px;">25-06-2019</td>
+                              <td style="padding: 12px 8px;"><span class="badge" style="background-color: #dc3545; font-size: 11px; padding: 5px 10px;"><i class="icon ion-md-close-circle-outline"></i> Failed</span></td>
+                              <td style="padding: 12px 8px; text-align: right; font-weight: 600; color: #dc3545;">2.5454545 BTC</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ETH Tab -->
+            <div class="tab-pane fade" id="coinETH" role="tabpanel">
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <div class="card h-100" style="border: 1px solid #e9ecef; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); border-top: 4px solid #627eea;">
+                    <div class="card-header" style="background-color: #f8f9fa; border: none;">
+                      <h5 class="card-title mb-0">
+                        <i class="icon ion-md-wallet" style="color: #627eea; margin-right: 8px;"></i>
+                        Balances
+                      </h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="balance-item mb-4 pb-4" style="border-bottom: 1px solid #e9ecef;">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div>
+                            <p class="text-muted small mb-1" style="font-weight: 600; text-transform: uppercase; font-size: 11px;">Total Equity</p>
+                            <h4 class="mb-0" style="color: #627eea; font-weight: 700;">{{ crypto_balances.ETH.total_balance }} ETH</h4>
+                          </div>
+                          <div style="width: 50px; height: 50px; background-color: rgba(98, 126, 234, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                            <i class="icon ion-md-disc" style="color: #627eea; font-size: 24px;"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="balance-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div>
+                            <p class="text-muted small mb-1" style="font-weight: 600; text-transform: uppercase; font-size: 11px;">Available Margin</p>
+                            <h4 class="mb-0" style="color: #627eea; font-weight: 700;">{{ crypto_balances.ETH.available_balance }} ETH</h4>
+                          </div>
+                          <div style="width: 50px; height: 50px; background-color: rgba(98, 126, 234, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                            <i class="icon ion-md-checkmark" style="color: #627eea; font-size: 24px;"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div style="display: flex; gap: 10px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e9ecef;">
+                        <button class="btn btn-sm" style="background-color: #28a745; color: white; border: none; flex: 1; font-weight: 600;">
+                          <i class="icon ion-md-arrow-round-down"></i> Deposit
+                        </button>
+                        <button class="btn btn-sm" style="background-color: #dc3545; color: white; border: none; flex: 1; font-weight: 600;">
+                          <i class="icon ion-md-arrow-round-up"></i> Withdraw
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <div class="card h-100" style="border: 1px solid #e9ecef; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); border-top: 4px solid #627eea;">
+                    <div class="card-header" style="background-color: #f8f9fa; border: none;">
+                      <h5 class="card-title mb-0">
+                        <i class="icon ion-md-redo" style="color: #627eea; margin-right: 8px;"></i>
+                        Wallet Deposit Address
+                      </h5>
+                    </div>
+                    <div class="card-body">
+                      <p class="text-muted small mb-3" style="line-height: 1.6;">Deposits to this address are unlimited. Note that you may not be able to withdraw all of your funds at once if you deposit more than your daily withdrawal limit.</p>
+                      <div style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 3px;">
+                        <input type="text" class="form-control" value="{{ crypto_balances.ETH.wallet_address|default:'Not set' }}" readonly style="background: white; border: 1px solid #dee2e6; padding: 10px; font-size: 12px;">
+                        <button class="btn btn-sm btn-primary mt-2" style="width: 100%; font-weight: 600;">
+                          <i class="icon ion-md-copy"></i> COPY ADDRESS
+                        </button>
+                      </div>
+                      <div style="text-align: center; margin-top: 15px;">
+                        <img src="{% static 'assets/img/qr-code-dark.svg' %}" alt="qr-code" style="width: 120px; height: 120px;">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 mb-4">
+                  <div class="card" style="border: 1px solid #e9ecef; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); border-top: 4px solid #495057;">
+                    <div class="card-header" style="background-color: #f8f9fa; border: none;">
+                      <h5 class="card-title mb-0">
+                        <i class="icon ion-md-time" style="color: #495057; margin-right: 8px;"></i>
+                        Latest Transactions
+                      </h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                          <thead>
+                            <tr style="background-color: #f8f9fa; border-bottom: 2px solid #dee2e6;">
+                              <th style="color: #495057; font-weight: 600; padding: 12px 8px;">No.</th>
+                              <th style="color: #495057; font-weight: 600; padding: 12px 8px;">Date</th>
+                              <th style="color: #495057; font-weight: 600; padding: 12px 8px;">Status</th>
+                              <th style="color: #495057; font-weight: 600; padding: 12px 8px; text-align: right;">Amount</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr style="border-bottom: 1px solid #e9ecef;">
+                              <td style="padding: 12px 8px;">1</td>
+                              <td style="padding: 12px 8px;">15-03-2024</td>
+                              <td style="padding: 12px 8px;"><span class="badge" style="background-color: #28a745; font-size: 11px; padding: 5px 10px;"><i class="icon ion-md-checkmark-circle-outline"></i> Confirmed</span></td>
+                              <td style="padding: 12px 8px; text-align: right; font-weight: 600; color: #28a745;">2.5 ETH</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e9ecef;">
+                              <td style="padding: 12px 8px;">2</td>
+                              <td style="padding: 12px 8px;">22-02-2024</td>
+                              <td style="padding: 12px 8px;"><span class="badge" style="background-color: #28a745; font-size: 11px; padding: 5px 10px;"><i class="icon ion-md-checkmark-circle-outline"></i> Confirmed</span></td>
+                              <td style="padding: 12px 8px; text-align: right; font-weight: 600; color: #28a745;">1.8 ETH</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e9ecef;">
+                              <td style="padding: 12px 8px;">3</td>
+                              <td style="padding: 12px 8px;">10-01-2024</td>
+                              <td style="padding: 12px 8px;"><span class="badge" style="background-color: #dc3545; font-size: 11px; padding: 5px 10px;"><i class="icon ion-md-close-circle-outline"></i> Failed</span></td>
+                              <td style="padding: 12px 8px; text-align: right; font-weight: 600; color: #dc3545;">0.5 ETH</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- BNB, USDT, SOL, XRP, USDC Tabs -->
+            <div class="tab-pane fade" id="coinBNB" role="tabpanel">
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <div class="card h-100" style="border: 1px solid #e9ecef; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); border-top: 4px solid #f3ba2f;">
+                    <div class="card-header" style="background-color: #f8f9fa; border: none;">
+                      <h5 class="card-title mb-0">
+                        <i class="icon ion-md-wallet" style="color: #f3ba2f; margin-right: 8px;"></i>
+                        Balances
+                      </h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="balance-item mb-4 pb-4" style="border-bottom: 1px solid #e9ecef;">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div>
+                            <p class="text-muted small mb-1" style="font-weight: 600; text-transform: uppercase; font-size: 11px;">Total Equity</p>
+                            <h4 class="mb-0" style="color: #f3ba2f; font-weight: 700;">{{ crypto_balances.BNB.total_balance }} BNB</h4>
+                          </div>
+                          <div style="width: 50px; height: 50px; background-color: rgba(243, 186, 47, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                            <i class="icon ion-md-disc" style="color: #f3ba2f; font-size: 24px;"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="balance-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div>
+                            <p class="text-muted small mb-1" style="font-weight: 600; text-transform: uppercase; font-size: 11px;">Available Margin</p>
+                            <h4 class="mb-0" style="color: #f3ba2f; font-weight: 700;">{{ crypto_balances.BNB.available_balance }} BNB</h4>
+                          </div>
+                          <div style="width: 50px; height: 50px; background-color: rgba(243, 186, 47, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                            <i class="icon ion-md-checkmark" style="color: #f3ba2f; font-size: 24px;"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div style="display: flex; gap: 10px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e9ecef;">
+                        <button class="btn btn-sm" style="background-color: #28a745; color: white; border: none; flex: 1; font-weight: 600;">
+                          <i class="icon ion-md-arrow-round-down"></i> Deposit
+                        </button>
+                        <button class="btn btn-sm" style="background-color: #dc3545; color: white; border: none; flex: 1; font-weight: 600;">
+                          <i class="icon ion-md-arrow-round-up"></i> Withdraw
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <div class="card h-100" style="border: 1px solid #e9ecef; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); border-top: 4px solid #f3ba2f;">
+                    <div class="card-header" style="background-color: #f8f9fa; border: none;">
+                      <h5 class="card-title mb-0">
+                        <i class="icon ion-md-redo" style="color: #f3ba2f; margin-right: 8px;"></i>
+                        Wallet Deposit Address
+                      </h5>
+                    </div>
+                    <div class="card-body">
+                      <p class="text-muted small mb-3" style="line-height: 1.6;">Deposits to this address are unlimited. Note that you may not be able to withdraw all of your funds at once if you deposit more than your daily withdrawal limit.</p>
+                      <div style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 3px;">
+                        <input type="text" class="form-control" value="{{ crypto_balances.BNB.wallet_address|default:'Not set' }}" readonly style="background: white; border: 1px solid #dee2e6; padding: 10px; font-size: 12px;">
+                        <button class="btn btn-sm btn-primary mt-2" style="width: 100%; font-weight: 600;">
+                          <i class="icon ion-md-copy"></i> COPY ADDRESS
+                        </button>
+                      </div>
+                      <div style="text-align: center; margin-top: 15px;">
+                        <img src="{% static 'assets/img/qr-code-dark.svg' %}" alt="qr-code" style="width: 120px; height: 120px;">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 mb-4">
+                  <div class="card" style="border: 1px solid #e9ecef; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); border-top: 4px solid #495057;">
+                    <div class="card-header" style="background-color: #f8f9fa; border: none;">
+                      <h5 class="card-title mb-0">
+                        <i class="icon ion-md-time" style="color: #495057; margin-right: 8px;"></i>
+                        Latest Transactions
+                      </h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                          <thead>
+                            <tr style="background-color: #f8f9fa; border-bottom: 2px solid #dee2e6;">
+                              <th style="color: #495057; font-weight: 600; padding: 12px 8px;">No.</th>
+                              <th style="color: #495057; font-weight: 600; padding: 12px 8px;">Date</th>
+                              <th style="color: #495057; font-weight: 600; padding: 12px 8px;">Status</th>
+                              <th style="color: #495057; font-weight: 600; padding: 12px 8px; text-align: right;">Amount</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr style="border-bottom: 1px solid #e9ecef;">
+                              <td style="padding: 12px 8px;">1</td>
+                              <td style="padding: 12px 8px;">05-04-2024</td>
+                              <td style="padding: 12px 8px;"><span class="badge" style="background-color: #28a745; font-size: 11px; padding: 5px 10px;"><i class="icon ion-md-checkmark-circle-outline"></i> Confirmed</span></td>
+                              <td style="padding: 12px 8px; text-align: right; font-weight: 600; color: #28a745;">10.5 BNB</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e9ecef;">
+                              <td style="padding: 12px 8px;">2</td>
+                              <td style="padding: 12px 8px;">18-03-2024</td>
+                              <td style="padding: 12px 8px;"><span class="badge" style="background-color: #28a745; font-size: 11px; padding: 5px 10px;"><i class="icon ion-md-checkmark-circle-outline"></i> Confirmed</span></td>
+                              <td style="padding: 12px 8px; text-align: right; font-weight: 600; color: #28a745;">7.2 BNB</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e9ecef;">
+                              <td style="padding: 12px 8px;">3</td>
+                              <td style="padding: 12px 8px;">12-02-2024</td>
+                              <td style="padding: 12px 8px;"><span class="badge" style="background-color: #dc3545; font-size: 11px; padding: 5px 10px;"><i class="icon ion-md-close-circle-outline"></i> Failed</span></td>
+                              <td style="padding: 12px 8px; text-align: right; font-weight: 600; color: #dc3545;">3.1 BNB</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- SOL Tab -->
+            <div class="tab-pane fade" id="coinSOL" role="tabpanel">
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <div class="card h-100" style="border: 1px solid #e9ecef; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); border-top: 4px solid #9945ff;">
+                    <div class="card-header" style="background-color: #f8f9fa; border: none;">
+                      <h5 class="card-title mb-0">
+                        <i class="icon ion-md-wallet" style="color: #9945ff; margin-right: 8px;"></i>
+                        Balances
+                      </h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="balance-item mb-4 pb-4" style="border-bottom: 1px solid #e9ecef;">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div>
+                            <p class="text-muted small mb-1" style="font-weight: 600; text-transform: uppercase; font-size: 11px;">Total Equity</p>
+                            <h4 class="mb-0" style="color: #9945ff; font-weight: 700;">{{ crypto_balances.SOL.total_balance }} SOL</h4>
+                          </div>
+                          <div style="width: 50px; height: 50px; background-color: rgba(153, 69, 255, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                            <i class="icon ion-md-disc" style="color: #9945ff; font-size: 24px;"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="balance-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div>
+                            <p class="text-muted small mb-1" style="font-weight: 600; text-transform: uppercase; font-size: 11px;">Available Margin</p>
+                            <h4 class="mb-0" style="color: #9945ff; font-weight: 700;">{{ crypto_balances.SOL.available_balance }} SOL</h4>
+                          </div>
+                          <div style="width: 50px; height: 50px; background-color: rgba(153, 69, 255, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                            <i class="icon ion-md-checkmark" style="color: #9945ff; font-size: 24px;"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div style="display: flex; gap: 10px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e9ecef;">
+                        <button class="btn btn-sm" style="background-color: #28a745; color: white; border: none; flex: 1; font-weight: 600;">
+                          <i class="icon ion-md-arrow-round-down"></i> Deposit
+                        </button>
+                        <button class="btn btn-sm" style="background-color: #dc3545; color: white; border: none; flex: 1; font-weight: 600;">
+                          <i class="icon ion-md-arrow-round-up"></i> Withdraw
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <div class="card h-100" style="border: 1px solid #e9ecef; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); border-top: 4px solid #9945ff;">
+                    <div class="card-header" style="background-color: #f8f9fa; border: none;">
+                      <h5 class="card-title mb-0">
+                        <i class="icon ion-md-redo" style="color: #9945ff; margin-right: 8px;"></i>
+                        Wallet Deposit Address
+                      </h5>
+                    </div>
+                    <div class="card-body">
+                      <p class="text-muted small mb-3" style="line-height: 1.6;">Deposits to this address are unlimited. Note that you may not be able to withdraw all of your funds at once if you deposit more than your daily withdrawal limit.</p>
+                      <div style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 3px;">
+                        <input type="text" class="form-control" value="{{ crypto_balances.SOL.wallet_address|default:'Not set' }}" readonly style="background: white; border: 1px solid #dee2e6; padding: 10px; font-size: 12px;">
+                        <button class="btn btn-sm btn-primary mt-2" style="width: 100%; font-weight: 600;">
+                          <i class="icon ion-md-copy"></i> COPY ADDRESS
+                        </button>
+                      </div>
+                      <div style="text-align: center; margin-top: 15px;">
+                        <img src="{% static 'assets/img/qr-code-dark.svg' %}" alt="qr-code" style="width: 120px; height: 120px;">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 mb-4">
+                  <div class="card" style="border: 1px solid #e9ecef; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); border-top: 4px solid #495057;">
+                    <div class="card-header" style="background-color: #f8f9fa; border: none;">
+                      <h5 class="card-title mb-0">
+                        <i class="icon ion-md-time" style="color: #495057; margin-right: 8px;"></i>
+                        Latest Transactions
+                      </h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                          <thead>
+                            <tr style="background-color: #f8f9fa; border-bottom: 2px solid #dee2e6;">
+                              <th style="color: #495057; font-weight: 600; padding: 12px 8px;">No.</th>
+                              <th style="color: #495057; font-weight: 600; padding: 12px 8px;">Date</th>
+                              <th style="color: #495057; font-weight: 600; padding: 12px 8px;">Status</th>
+                              <th style="color: #495057; font-weight: 600; padding: 12px 8px; text-align: right;">Amount</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr style="border-bottom: 1px solid #e9ecef;">
+                              <td style="padding: 12px 8px;">1</td>
+                              <td style="padding: 12px 8px;">20-03-2024</td>
+                              <td style="padding: 12px 8px;"><span class="badge" style="background-color: #28a745; font-size: 11px; padding: 5px 10px;"><i class="icon ion-md-checkmark-circle-outline"></i> Confirmed</span></td>
+                              <td style="padding: 12px 8px; text-align: right; font-weight: 600; color: #28a745;">25.5 SOL</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e9ecef;">
+                              <td style="padding: 12px 8px;">2</td>
+                              <td style="padding: 12px 8px;">12-02-2024</td>
+                              <td style="padding: 12px 8px;"><span class="badge" style="background-color: #28a745; font-size: 11px; padding: 5px 10px;"><i class="icon ion-md-checkmark-circle-outline"></i> Confirmed</span></td>
+                              <td style="padding: 12px 8px; text-align: right; font-weight: 600; color: #28a745;">15.2 SOL</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e9ecef;">
+                              <td style="padding: 12px 8px;">3</td>
+                              <td style="padding: 12px 8px;">05-01-2024</td>
+                              <td style="padding: 12px 8px;"><span class="badge" style="background-color: #dc3545; font-size: 11px; padding: 5px 10px;"><i class="icon ion-md-close-circle-outline"></i> Failed</span></td>
+                              <td style="padding: 12px 8px; text-align: right; font-weight: 600; color: #dc3545;">8.7 SOL</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .wallet-nav-tabs {
+    display: flex;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+  
+  .wallet-tab-link {
+    white-space: nowrap;
+    border-bottom: 3px solid transparent !important;
+    transition: all 0.3s ease;
+  }
+  
+  .wallet-tab-link.active {
+    border-bottom-color: #1e3c72 !important;
+    color: #1e3c72 !important;
+  }
+  
+  .wallet-tab-link:hover {
+    color: #1e3c72 !important;
+    background-color: rgba(30, 60, 114, 0.05);
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .card {
+    transition: all 0.3s ease;
+  }
+  
+  .card:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+    transform: translateY(-2px);
+  }
+  
+  .balance-item {
+    position: relative;
+  }
+  
+  .table-hover tbody tr:hover {
+    background-color: #f8f9fa;
+  }
+</style>
+{% endblock content %}

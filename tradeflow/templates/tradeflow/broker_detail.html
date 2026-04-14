@@ -1,0 +1,22 @@
+{% extends "main.html" %}
+
+{% block content %}
+<section class="card">
+    <div class="card-body">
+        <h1 class="card-title">{{ broker.name }}</h1>
+        <dl class="row mb-3">
+            <dt class="col-sm-3">Rating</dt>
+            <dd class="col-sm-9">{{ broker.rating }}/5</dd>
+            <dt class="col-sm-3">Commission</dt>
+            <dd class="col-sm-9">{{ broker.commission_rate }}%</dd>
+            <dt class="col-sm-3">Minimum Deposit</dt>
+            <dd class="col-sm-9">${{ broker.minimum_deposit }}</dd>
+            <dt class="col-sm-3">Regulation</dt>
+            <dd class="col-sm-9">{{ broker.regulation }}</dd>
+            <dt class="col-sm-3">Account Types</dt>
+            <dd class="col-sm-9">{{ broker.account_types }}</dd>
+        </dl>
+        <a class="btn btn-outline-primary" href="{% url 'brokers' %}">Back to Brokers</a>
+    </div>
+</section>
+{% endblock content %}

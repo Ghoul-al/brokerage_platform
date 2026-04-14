@@ -1,0 +1,367 @@
+{% extends "main.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="settings mtb15">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 col-lg-3">
+        <div class="nav flex-column nav-pills settings-nav" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <a class="nav-link active" id="settings-profile-tab" data-toggle="pill" href="#settings-profile" role="tab" aria-controls="settings-profile" aria-selected="true">
+            <i class="icon ion-md-person"></i> Profile
+          </a>
+          <a class="nav-link" id="settings-wallet-tab" data-toggle="pill" href="#settings-wallet" role="tab" aria-controls="settings-wallet" aria-selected="false">
+            <i class="icon ion-md-wallet"></i> Wallet
+          </a>
+          <a class="nav-link" id="settings-tab" data-toggle="pill" href="#settings" role="tab" aria-controls="settings" aria-selected="false">
+            <i class="icon ion-md-settings"></i> Settings
+          </a>
+        </div>
+      </div>
+
+      <div class="col-md-12 col-lg-9">
+        <div class="tab-content" id="v-pills-tabContent">
+          <div class="tab-pane fade show active" id="settings-profile" role="tabpanel" aria-labelledby="settings-profile-tab">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">General Information</h5>
+                <div class="settings-profile">
+                  <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {% if request.user.profile.profile_image %}
+                      <img src="{{ request.user.profile.profile_image.url }}" alt="avatar">
+                    {% else %}
+                      <img src="{% static 'assets/img/avatar.svg' %}" alt="avatar">
+                    {% endif %}
+
+                    <div class="custom-file mb-4">
+                      {{ profile_form.profile_image|add_class:"custom-file-input" }}
+                      <label class="custom-file-label" for="{{ profile_form.profile_image.id_for_label }}">Choose avatar</label>
+                      {% for error in profile_form.profile_image.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                      {% endfor %}
+                    </div>
+
+                    <div class="form-row mt-4">
+                      <div class="col-md-6">
+                        <label for="{{ profile_form.full_name.id_for_label }}">Full name</label>
+                        {{ profile_form.full_name|add_class:"form-control"|attr:"placeholder:Enter full name" }}
+                        {% for error in profile_form.full_name.errors %}
+                          <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
+                      </div>
+
+                      <div class="col-md-6">
+                        <label for="{{ user_form.username.id_for_label }}">Username</label>
+                        {{ user_form.username|add_class:"form-control"|attr:"placeholder:Enter username" }}
+                        {% for error in user_form.username.errors %}
+                          <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
+                      </div>
+
+                      <div class="col-md-6">
+                        <label for="{{ user_form.email.id_for_label }}">Email</label>
+                        {{ user_form.email|add_class:"form-control"|attr:"placeholder:Enter your email" }}
+                        {% for error in user_form.email.errors %}
+                          <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
+                      </div>
+
+                      <div class="col-md-6">
+                        <label for="{{ profile_form.phone_number.id_for_label }}">Phone</label>
+                        {{ profile_form.phone_number|add_class:"form-control"|attr:"placeholder:Enter phone number" }}
+                        {% for error in profile_form.phone_number.errors %}
+                          <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
+                      </div>
+
+                      <div class="col-md-6">
+                        <label for="{{ profile_form.dob.id_for_label }}">Date of birth</label>
+                        {{ profile_form.dob|add_class:"form-control" }}
+                        {% for error in profile_form.dob.errors %}
+                          <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
+                      </div>
+
+                      <div class="col-md-6">
+                        <label for="{{ profile_form.gender.id_for_label }}">Gender</label>
+                        {{ profile_form.gender|add_class:"custom-select" }}
+                        {% for error in profile_form.gender.errors %}
+                          <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
+                      </div>
+
+                      <div class="col-md-12">
+                        <input type="submit" value="Update">
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Security Information</h5>
+                <div class="settings-profile">
+                  <form>
+                    <div class="form-row">
+                      <div class="col-md-6">
+                        <label for="currentPass">Current password</label>
+                        <input id="currentPass" type="password" class="form-control" placeholder="Enter your password">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="newPass">New password</label>
+                        <input id="newPass" type="password" class="form-control" placeholder="Enter new password">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="securityOne">Security questions #1</label>
+                        <select id="securityOne" class="custom-select">
+                          <option selected>What was the name of your first pet?</option>
+                          <option>What's your Mother's middle name?</option>
+                          <option>What was the name of your first school?</option>
+                          <option>Where did you travel for the first time?</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="securityAnsOne">Answer</label>
+                        <input id="securityAnsOne" type="text" class="form-control" placeholder="Enter your answer">
+                      </div>
+                      <div class="col-md-12">
+                        <input type="submit" value="Update">
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane fade" id="settings-wallet" role="tabpanel" aria-labelledby="settings-wallet-tab">
+            <div class="wallet">
+              <div class="row">
+                <div class="col-md-12 col-lg-4">
+                  <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link d-flex justify-content-between align-items-center active" data-toggle="pill" href="#coinBTC" role="tab" aria-selected="true">
+                      <div class="d-flex">
+                        <img src="{% static 'assets/img/icon/18.png' %}" alt="wallet">
+                        <div>
+                          <h2>Main</h2>
+                          <p>Trading Wallet</p>
+                        </div>
+                      </div>
+                      <div>
+                        <h3>${% if account %}{{ account.balance }}{% else %}0.00{% endif %}</h3>
+                        <p class="text-right"><i class="icon ion-md-lock"></i> Available</p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+
+                <div class="col-md-12 col-lg-8">
+                  <div class="tab-content">
+                    <div class="tab-pane fade show active" id="coinBTC" role="tabpanel">
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">Balances</h5>
+                          <ul>
+                            <li class="d-flex justify-content-between align-items-center">
+                              <div class="d-flex align-items-center">
+                                <i class="icon ion-md-cash"></i>
+                                <h2>Total Balance</h2>
+                              </div>
+                              <div>
+                                <h3>${% if account %}{{ account.balance }}{% else %}0.00{% endif %}</h3>
+                              </div>
+                            </li>
+                            <li class="d-flex justify-content-between align-items-center">
+                              <div class="d-flex align-items-center">
+                                <i class="icon ion-md-checkmark"></i>
+                                <h2>Withdrawal Limit</h2>
+                              </div>
+                              <div>
+                                <h3>${% if account %}{{ account.withdrawal_limit }}{% else %}0.00{% endif %}</h3>
+                              </div>
+                            </li>
+                          </ul>
+                          <a class="btn green" href="{% url 'exchange' %}">Trade</a>
+                          <a class="btn red" href="{% url 'account-summary' %}">View Wallet</a>
+                        </div>
+                      </div>
+
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">Wallet Status</h5>
+                          <div class="row wallet-address">
+                            <div class="col-md-8">
+                              <p>Your trading wallet is connected to your account summary and exchange pages.</p>
+                              <div class="input-group">
+                                <input type="text" class="form-control" value="{% if account %}{{ account.get_account_status_display }}{% else %}Not created{% endif %}" readonly>
+                                <div class="input-group-prepend">
+                                  <a class="btn btn-primary" href="{% url 'account-summary' %}">OPEN</a>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <img src="{% static 'assets/img/qr-code-dark.svg' %}" alt="qr-code">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">Latest Wallet Snapshot</h5>
+                          <div class="wallet-history">
+                            <table class="table">
+                              <thead>
+                                <tr>
+                                  <th>Field</th>
+                                  <th>Value</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>Account Type</td>
+                                  <td>{% if account %}{{ account.get_account_type_display }}{% else %}Cash{% endif %}</td>
+                                </tr>
+                                <tr>
+                                  <td>Account Status</td>
+                                  <td>{% if account %}{{ account.get_account_status_display }}{% else %}Unverified{% endif %}</td>
+                                </tr>
+                                <tr>
+                                  <td>Total Withdrawals</td>
+                                  <td>${% if account %}{{ account.total_withdrawals }}{% else %}0.00{% endif %}</td>
+                                </tr>
+                                <tr>
+                                  <td>Balance</td>
+                                  <td>${% if account %}{{ account.balance }}{% else %}0.00{% endif %}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Notifications</h5>
+                <div class="settings-notification">
+                  <ul>
+                    <li>
+                      <div class="notification-info">
+                        <p>Update price</p>
+                        <span>Get the update price in your dashboard</span>
+                      </div>
+                      <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="notification1">
+                        <label class="custom-control-label" for="notification1"></label>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="notification-info">
+                        <p>2FA</p>
+                        <span>Manage two factor authentication service</span>
+                      </div>
+                      <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="notification2" {% if request.user.profile.two_factor_enabled %}checked{% endif %}>
+                        <label class="custom-control-label" for="notification2"></label>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="notification-info">
+                        <p>Email Service</p>
+                        <span>Get security code in your mail</span>
+                      </div>
+                      <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="notification4" checked>
+                        <label class="custom-control-label" for="notification4"></label>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="card settings-profile">
+              <div class="card-body">
+                <h5 class="card-title">Account Details</h5>
+                <div class="form-row">
+                  <div class="col-md-6">
+                    <label>Username</label>
+                    <input type="text" class="form-control" value="{{ request.user.username }}" readonly>
+                  </div>
+                  <div class="col-md-6">
+                    <label>Email</label>
+                    <input type="text" class="form-control" value="{{ request.user.email }}" readonly>
+                  </div>
+                  <div class="col-md-12">
+                    <a class="btn btn-primary mt-3" href="{% url 'users:profile_view' request.user.username %}">View Public Profile</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Quick Actions</h5>
+                <div class="wallet-history">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>No.</th>
+                        <th>Action</th>
+                        <th>Status</th>
+                        <th>Open</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>Profile Overview</td>
+                        <td>Ready</td>
+                        <td><a href="{% url 'users:profile' %}">Open</a></td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>Wallet Summary</td>
+                        <td>Ready</td>
+                        <td><a href="{% url 'account-summary' %}">Open</a></td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>Exchange</td>
+                        <td>Ready</td>
+                        <td><a href="{% url 'exchange' %}">Open</a></td>
+                      </tr>
+                      <tr>
+                        <td>4</td>
+                        <td>Logout</td>
+                        <td>Ready</td>
+                        <td><a href="{% url 'users:logout' %}">Open</a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{% static 'assets/js/amcharts-core.min.js' %}"></script>
+<script src="{% static 'assets/js/amcharts.min.js' %}"></script>
+<script src="{% static 'assets/js/custom.js' %}"></script>
+{% endblock content %}
