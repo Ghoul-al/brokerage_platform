@@ -14,6 +14,7 @@ import os
 import sys
 from pathlib import Path
 from urllib.parse import parse_qs, unquote, urlparse
+import dj_database_url
 
 from dotenv import load_dotenv
 
@@ -187,7 +188,10 @@ WSGI_APPLICATION = 'brokerage_platform.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    "default": database_config()
+    'default': dj_database_url.config(
+        default='sqlite:///db.sqlite3',
+        conn_max_age=600
+    )
 }
 
 
