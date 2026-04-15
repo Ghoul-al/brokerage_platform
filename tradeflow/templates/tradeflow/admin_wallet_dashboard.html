@@ -6,142 +6,232 @@
 
   .tf-admin-wallet-shell {
     font-family: "Manrope", "Nunito Sans", sans-serif;
+    position: relative;
+    color: #dbe8ff;
+  }
+
+  .tf-admin-wallet-shell::before {
+    content: "";
+    position: absolute;
+    inset: -1.5rem -1rem auto;
+    height: 24rem;
+    border-radius: 2.4rem;
+    background:
+      radial-gradient(circle at 12% 18%, rgba(76, 201, 240, 0.24), transparent 26%),
+      radial-gradient(circle at 84% 14%, rgba(139, 92, 246, 0.26), transparent 28%),
+      radial-gradient(circle at 50% 72%, rgba(59, 130, 246, 0.18), transparent 34%),
+      linear-gradient(145deg, #07152d 0%, #0d2245 38%, #162f59 72%, #1d3564 100%);
+    box-shadow: 0 30px 80px rgba(7, 18, 41, 0.42);
+    z-index: 0;
+  }
+
+  .tf-admin-wallet-content {
+    position: relative;
+    z-index: 1;
   }
 
   .tf-admin-wallet-hero {
-    border-radius: 24px;
-    padding: 1.4rem;
-    border: 1px solid rgba(24, 58, 126, 0.14);
+    border-radius: 2rem;
+    padding: 1.8rem;
+    border: 1px solid rgba(142, 176, 242, 0.2);
     background:
-      radial-gradient(circle at 18% 22%, rgba(92, 222, 255, 0.28), transparent 40%),
-      radial-gradient(circle at 84% 24%, rgba(63, 131, 255, 0.25), transparent 36%),
-      linear-gradient(145deg, #ecf4ff, #f4f8ff 40%, #ecf6ff);
-    box-shadow: 0 22px 46px rgba(18, 38, 79, 0.12);
-    margin-bottom: 1rem;
+      linear-gradient(135deg, rgba(9, 24, 53, 0.82), rgba(14, 35, 74, 0.64)),
+      radial-gradient(circle at 20% 20%, rgba(76, 201, 240, 0.18), transparent 34%),
+      radial-gradient(circle at 84% 18%, rgba(96, 165, 250, 0.2), transparent 32%);
+    box-shadow:
+      0 22px 46px rgba(8, 20, 45, 0.34),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    margin-bottom: 1.2rem;
+    backdrop-filter: blur(18px);
   }
 
   .tf-admin-wallet-head {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    gap: 0.9rem;
+    align-items: flex-start;
+    gap: 1.2rem;
     flex-wrap: wrap;
+  }
+
+  .tf-admin-wallet-copy {
+    max-width: 60rem;
   }
 
   .tf-admin-wallet-kicker {
     display: inline-flex;
     align-items: center;
+    gap: 0.5rem;
     border-radius: 999px;
-    padding: 0.2rem 0.7rem;
-    font-size: 0.76rem;
+    padding: 0.42rem 0.9rem;
+    font-size: 0.74rem;
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: #18488b;
-    background: rgba(47, 122, 235, 0.16);
+    color: #9dd7ff;
+    background: rgba(98, 168, 255, 0.12);
+    border: 1px solid rgba(121, 184, 255, 0.18);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
   }
 
   .tf-admin-wallet-title {
     font-family: "Sora", "Manrope", sans-serif;
     font-weight: 700;
-    color: #0f2c60;
-    margin: 0.35rem 0 0;
+    color: #f4f8ff;
+    margin: 0.8rem 0 0.55rem;
+    font-size: clamp(2rem, 4.4vw, 3.2rem);
+    letter-spacing: -0.045em;
+    line-height: 0.98;
   }
 
   .tf-admin-wallet-subtitle {
     margin: 0;
-    color: #4e638a;
+    max-width: 48rem;
+    color: rgba(220, 233, 255, 0.78);
     font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .tf-admin-wallet-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 1rem;
+  }
+
+  .tf-admin-wallet-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.48rem 0.85rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(153, 189, 245, 0.16);
+    color: #d4e6ff;
+    font-size: 0.84rem;
+    font-weight: 700;
   }
 
   .tf-admin-wallet-stats {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
+    gap: 0.8rem;
+    min-width: min(100%, 22rem);
   }
 
   .tf-admin-wallet-stat {
-    min-width: 132px;
-    border-radius: 14px;
-    padding: 0.62rem 0.78rem;
-    border: 1px solid rgba(43, 95, 181, 0.2);
-    background: rgba(255, 255, 255, 0.78);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    border-radius: 1.35rem;
+    padding: 1rem 1rem 0.95rem;
+    border: 1px solid rgba(136, 173, 238, 0.16);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.04)),
+      rgba(8, 20, 45, 0.3);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.05),
+      0 12px 28px rgba(7, 17, 37, 0.24);
   }
 
   .tf-admin-wallet-stat p {
     margin: 0;
-    font-size: 0.76rem;
+    font-size: 0.72rem;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: #5973a4;
+    letter-spacing: 0.14em;
+    color: #8eaad5;
     font-weight: 700;
   }
 
   .tf-admin-wallet-stat strong {
-    font-size: 1.16rem;
-    color: #123772;
+    display: block;
+    margin-top: 0.4rem;
+    font-size: 1.35rem;
+    color: #f7fbff;
+    letter-spacing: -0.03em;
+  }
+
+  .tf-admin-wallet-stat span {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 0.84rem;
+    color: #9fb5db;
+    font-weight: 600;
   }
 
   .tf-admin-wallet-panel {
-    border-radius: 20px;
-    border: 1px solid rgba(43, 95, 181, 0.18);
-    background: linear-gradient(180deg, #fbfdff 0%, #f6f9ff 100%);
-    box-shadow: 0 18px 42px rgba(18, 38, 79, 0.1);
+    border-radius: 2rem;
+    border: 1px solid rgba(163, 186, 234, 0.16);
+    background:
+      linear-gradient(180deg, rgba(7, 20, 44, 0.96) 0%, rgba(10, 24, 51, 0.98) 100%);
+    box-shadow:
+      0 24px 60px rgba(7, 18, 41, 0.36),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04);
     overflow: hidden;
+    backdrop-filter: blur(14px);
   }
 
   .tf-admin-wallet-toolbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 0.75rem;
+    gap: 1rem;
     flex-wrap: wrap;
-    border-bottom: 1px solid rgba(43, 95, 181, 0.15);
-    padding: 0.95rem 1rem;
-    background: rgba(255, 255, 255, 0.66);
+    border-bottom: 1px solid rgba(152, 180, 235, 0.12);
+    padding: 1.15rem 1.2rem 1rem;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
   }
 
   .tf-admin-wallet-note {
     margin: 0;
-    color: #516894;
-    font-size: 0.92rem;
+    color: #d5e5ff;
+    font-size: 0.94rem;
     font-weight: 600;
+    max-width: 42rem;
+  }
+
+  .tf-admin-wallet-note strong {
+    color: #ffffff;
   }
 
   .tf-admin-wallet-search-wrap {
     min-width: 260px;
-    max-width: 360px;
+    max-width: 380px;
     flex: 1;
   }
 
   .tf-admin-wallet-search {
     width: 100%;
-    border-radius: 12px;
-    border: 1px solid rgba(43, 95, 181, 0.24);
-    background: #fff;
-    color: #1f3f75;
-    font-size: 0.92rem;
-    padding: 0.58rem 0.75rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(147, 180, 241, 0.18);
+    background: rgba(255, 255, 255, 0.06);
+    color: #f4f8ff;
+    font-size: 0.94rem;
+    padding: 0.82rem 1rem;
     outline: none;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  }
+
+  .tf-admin-wallet-search::placeholder {
+    color: #97add4;
   }
 
   .tf-admin-wallet-search:focus {
-    border-color: rgba(22, 102, 222, 0.56);
-    box-shadow: 0 0 0 3px rgba(45, 127, 247, 0.15);
+    border-color: rgba(108, 172, 255, 0.5);
+    box-shadow: 0 0 0 4px rgba(76, 138, 255, 0.12);
   }
 
   .tf-admin-wallet-table-wrap {
     overflow-x: auto;
-    padding: 0.9rem;
+    padding: 1rem 1.15rem 1.15rem;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0));
   }
 
   .tf-admin-wallet-table {
     margin: 0;
     border-collapse: separate;
-    border-spacing: 0;
+    border-spacing: 0 0.6rem;
+    min-width: 1220px;
   }
 
   .tf-admin-wallet-table thead th {
@@ -149,253 +239,368 @@
     top: 0;
     z-index: 1;
     border: none;
-    background: #e8f0ff;
-    color: #446397;
-    font-size: 0.73rem;
-    letter-spacing: 0.06em;
+    background: rgba(255, 255, 255, 0.02);
+    color: #7f9cc8;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     white-space: nowrap;
-    padding: 0.66rem 0.56rem;
+    padding: 0 0.65rem 0.3rem;
   }
 
   .tf-admin-wallet-table tbody td {
-    border-top: 1px solid rgba(52, 94, 165, 0.12);
+    border-top: 1px solid rgba(148, 179, 235, 0.08);
+    border-bottom: 1px solid rgba(148, 179, 235, 0.08);
     vertical-align: middle;
     white-space: nowrap;
-    color: #163b75;
-    padding: 0.56rem;
+    color: #d7e6ff;
+    padding: 0.72rem 0.65rem;
     font-weight: 600;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.035);
+    backdrop-filter: blur(10px);
   }
 
   .tf-admin-wallet-table tbody tr:hover td {
-    background: #f8fbff;
+    background: rgba(92, 144, 238, 0.08);
+  }
+
+  .tf-admin-wallet-table tbody td:first-child {
+    border-left: 1px solid rgba(148, 179, 235, 0.08);
+    border-radius: 1rem 0 0 1rem;
+  }
+
+  .tf-admin-wallet-table tbody td:last-child {
+    border-right: 1px solid rgba(148, 179, 235, 0.08);
+    border-radius: 0 1rem 1rem 0;
+  }
+
+  .tf-admin-wallet-usercell {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    min-width: 210px;
+  }
+
+  .tf-admin-wallet-userbadge {
+    width: 2.7rem;
+    height: 2.7rem;
+    border-radius: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background:
+      linear-gradient(135deg, rgba(76, 201, 240, 0.22), rgba(59, 130, 246, 0.16));
+    color: #f4fbff;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    border: 1px solid rgba(151, 204, 255, 0.16);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
   }
 
   .tf-admin-wallet-user {
     font-weight: 700;
-    color: #143a73;
+    color: #f5f8ff;
+    line-height: 1.1;
   }
 
   .tf-admin-wallet-email {
-    color: #6380b3;
+    color: #8ea8d0;
     font-size: 0.86rem;
     font-weight: 600;
   }
 
   .tf-admin-number {
-    min-width: 132px;
-    border-radius: 10px;
-    border: 1px solid rgba(43, 95, 181, 0.24);
-    background: #fff;
-    color: #13356a;
-    padding: 0.42rem 0.5rem;
+    min-width: 140px;
+    border-radius: 0.95rem;
+    border: 1px solid rgba(151, 180, 232, 0.14);
+    background: rgba(3, 11, 26, 0.26);
+    color: #f4f8ff;
+    padding: 0.78rem 0.85rem;
     font-weight: 600;
-    font-size: 0.88rem;
+    font-size: 0.9rem;
     outline: none;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
   }
 
   .tf-admin-text {
-    min-width: 220px;
-    border-radius: 10px;
-    border: 1px solid rgba(43, 95, 181, 0.24);
-    background: #fff;
-    color: #13356a;
-    padding: 0.42rem 0.5rem;
+    min-width: 250px;
+    border-radius: 0.95rem;
+    border: 1px solid rgba(151, 180, 232, 0.14);
+    background: rgba(3, 11, 26, 0.26);
+    color: #f4f8ff;
+    padding: 0.78rem 0.85rem;
     font-weight: 600;
-    font-size: 0.88rem;
+    font-size: 0.9rem;
     outline: none;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
   }
 
-  .tf-admin-number:focus {
-    border-color: rgba(22, 102, 222, 0.58);
-    box-shadow: 0 0 0 3px rgba(45, 127, 247, 0.14);
+  .tf-admin-number::placeholder,
+  .tf-admin-text::placeholder {
+    color: #88a3cd;
   }
 
+  .tf-admin-number:focus,
   .tf-admin-text:focus {
-    border-color: rgba(22, 102, 222, 0.58);
-    box-shadow: 0 0 0 3px rgba(45, 127, 247, 0.14);
+    border-color: rgba(108, 172, 255, 0.44);
+    box-shadow: 0 0 0 4px rgba(76, 138, 255, 0.1);
   }
 
   .tf-admin-wallet-actions {
-    border-top: 1px solid rgba(43, 95, 181, 0.15);
-    padding: 0.9rem 1rem 1rem;
+    border-top: 1px solid rgba(148, 179, 235, 0.1);
+    padding: 1rem 1.2rem 1.2rem;
     display: flex;
-    justify-content: flex-end;
-    background: rgba(255, 255, 255, 0.7);
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .tf-admin-wallet-actions-copy {
+    color: #98add1;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .tf-admin-wallet-actions-copy strong {
+    color: #f4f8ff;
   }
 
   .tf-admin-save-btn {
     border: none;
-    border-radius: 12px;
-    padding: 0.62rem 1rem;
+    border-radius: 1rem;
+    padding: 0.95rem 1.3rem;
     font-weight: 700;
     color: #fff;
-    background: linear-gradient(135deg, #2463d9, #2b97f2);
-    box-shadow: 0 14px 28px rgba(34, 104, 214, 0.32);
+    background: linear-gradient(135deg, #1d63e4, #3ea7ff 58%, #5fd0f5 100%);
+    box-shadow:
+      0 16px 34px rgba(35, 115, 230, 0.34),
+      inset 0 1px 0 rgba(255, 255, 255, 0.18);
     cursor: pointer;
     transition: transform 0.15s ease, box-shadow 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    letter-spacing: -0.01em;
   }
 
   .tf-admin-save-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 16px 32px rgba(34, 104, 214, 0.38);
+    transform: translateY(-2px);
+    box-shadow: 0 18px 38px rgba(35, 115, 230, 0.42);
   }
 
   .tf-admin-empty {
     text-align: center;
-    color: #617ba9;
-    padding: 1.2rem 0.5rem;
+    color: #97add1;
+    padding: 1.4rem 0.5rem;
     font-weight: 600;
+  }
+
+  @media (max-width: 991px) {
+    .tf-admin-wallet-shell::before {
+      inset: -1rem -0.4rem auto;
+      height: 20rem;
+      border-radius: 1.8rem;
+    }
+
+    .tf-admin-wallet-hero {
+      padding: 1.35rem;
+    }
+
+    .tf-admin-wallet-stats {
+      width: 100%;
+      min-width: 0;
+    }
   }
 
   @media (max-width: 768px) {
     .tf-admin-wallet-hero {
-      border-radius: 18px;
-      padding: 1rem;
+      border-radius: 1.5rem;
+      padding: 1.1rem;
     }
 
     .tf-admin-wallet-panel {
-      border-radius: 16px;
+      border-radius: 1.45rem;
     }
 
     .tf-admin-wallet-toolbar {
-      padding: 0.85rem;
+      padding: 1rem 0.95rem 0.9rem;
     }
 
     .tf-admin-wallet-table-wrap {
-      padding: 0.65rem;
+      padding: 0.8rem;
     }
 
     .tf-admin-wallet-actions {
       justify-content: stretch;
-      padding: 0.85rem;
+      align-items: stretch;
+      flex-direction: column;
+      padding: 0.95rem;
     }
 
     .tf-admin-save-btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .tf-admin-wallet-search-wrap {
+      min-width: 100%;
+      max-width: 100%;
+    }
+
+    .tf-admin-wallet-stats {
+      grid-template-columns: 1fr;
+    }
+
+    .tf-admin-wallet-actions-copy {
       width: 100%;
     }
   }
 </style>
 
 <section class="tf-admin-wallet-shell">
-  <div class="tf-admin-wallet-hero">
-    <div class="tf-admin-wallet-head">
-      <div>
-        <span class="tf-admin-wallet-kicker">Staff Dashboard</span>
-        <h1 class="tf-admin-wallet-title">Wallet Balance Control</h1>
-        <p class="tf-admin-wallet-subtitle">
-          Update cash balances, crypto balances, and each user's deposit wallet address from one workspace.
+  <div class="tf-admin-wallet-content">
+    <div class="tf-admin-wallet-hero">
+      <div class="tf-admin-wallet-head">
+        <div class="tf-admin-wallet-copy">
+          <span class="tf-admin-wallet-kicker">
+            <i class="icon ion-md-lock"></i>
+            Premium Control Room
+          </span>
+          <h1 class="tf-admin-wallet-title">Wallet Treasury Console</h1>
+          <p class="tf-admin-wallet-subtitle">
+            Update cash balances, crypto balances, and each user's deposit wallet address from one polished control surface before payment is made.
+          </p>
+          <div class="tf-admin-wallet-tags">
+            <span class="tf-admin-wallet-tag"><i class="icon ion-md-cash"></i> Balance Operations</span>
+            <span class="tf-admin-wallet-tag"><i class="icon ion-md-redo"></i> Address Overrides</span>
+            <span class="tf-admin-wallet-tag"><i class="icon ion-md-shield"></i> Staff-Only Access</span>
+          </div>
+        </div>
+
+        <div class="tf-admin-wallet-stats">
+          <div class="tf-admin-wallet-stat">
+            <p>Users</p>
+            <strong>{{ total_users }}</strong>
+            <span>Accounts ready for review</span>
+          </div>
+          <div class="tf-admin-wallet-stat">
+            <p>Coins Managed</p>
+            <strong>{{ coins|length }}</strong>
+            <span>Editable wallet networks</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tf-admin-wallet-panel">
+      <div class="tf-admin-wallet-toolbar">
+        <p class="tf-admin-wallet-note">
+          <strong>Live edit grid:</strong> changes are written directly to the balances and wallet addresses users see before they make payment.
         </p>
-      </div>
-      <div class="tf-admin-wallet-stats">
-        <div class="tf-admin-wallet-stat">
-          <p>Users</p>
-          <strong>{{ total_users }}</strong>
-        </div>
-        <div class="tf-admin-wallet-stat">
-          <p>Coins Managed</p>
-          <strong>{{ coins|length }}</strong>
+        <div class="tf-admin-wallet-search-wrap">
+          <input
+            id="walletSearchInput"
+            class="tf-admin-wallet-search"
+            type="search"
+            placeholder="Search by username or email"
+          >
         </div>
       </div>
-    </div>
-  </div>
 
-  <div class="tf-admin-wallet-panel">
-    <div class="tf-admin-wallet-toolbar">
-      <p class="tf-admin-wallet-note">
-        Changes are saved directly to the balances and wallet addresses users see before they make payment.
-      </p>
-      <div class="tf-admin-wallet-search-wrap">
-        <input
-          id="walletSearchInput"
-          class="tf-admin-wallet-search"
-          type="search"
-          placeholder="Search user or email"
-        >
-      </div>
-    </div>
-
-    <form method="post">
-      {% csrf_token %}
-      <div class="tf-admin-wallet-table-wrap">
-        <table class="table tf-admin-wallet-table">
-          <thead>
-            <tr>
-              <th>User</th>
-              <th>Email</th>
-              <th>Cash Balance ($)</th>
-              {% for coin in coins %}
-                <th>{{ coin.code }} Total</th>
-                <th>{{ coin.code }} Available</th>
-                <th>{{ coin.code }} Address</th>
-              {% endfor %}
-            </tr>
-          </thead>
-          <tbody id="walletTableBody">
-            {% for row in rows %}
-              <tr data-search="{{ row.user.username|lower }} {{ row.user.email|default:''|lower }}">
-                <td class="tf-admin-wallet-user">{{ row.user.username }}</td>
-                <td class="tf-admin-wallet-email">{{ row.user.email|default:"-" }}</td>
-                <td>
-                  <input
-                    class="tf-admin-number"
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    name="account_{{ row.account.id }}_cash_balance"
-                    value="{{ row.account.balance }}"
-                    required
-                  >
-                </td>
-                {% for coin_data in row.coin_balances %}
-                  <td>
-                    <input
-                      class="tf-admin-number"
-                      type="number"
-                      min="0"
-                      step="0.00000001"
-                      name="account_{{ row.account.id }}_{{ coin_data.coin.code }}_total_balance"
-                      value="{{ coin_data.balance.total_balance }}"
-                      required
-                    >
-                  </td>
-                  <td>
-                    <input
-                      class="tf-admin-number"
-                      type="number"
-                      min="0"
-                      step="0.00000001"
-                      name="account_{{ row.account.id }}_{{ coin_data.coin.code }}_available_balance"
-                      value="{{ coin_data.balance.available_balance }}"
-                      required
-                    >
-                  </td>
-                  <td>
-                    <input
-                      class="tf-admin-text"
-                      type="text"
-                      name="account_{{ row.account.id }}_{{ coin_data.coin.code }}_wallet_address"
-                      value="{{ coin_data.balance.wallet_address }}"
-                    >
-                  </td>
+      <form method="post">
+        {% csrf_token %}
+        <div class="tf-admin-wallet-table-wrap">
+          <table class="table tf-admin-wallet-table">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Email</th>
+                <th>Cash Balance ($)</th>
+                {% for coin in coins %}
+                  <th>{{ coin.code }} Total</th>
+                  <th>{{ coin.code }} Available</th>
+                  <th>{{ coin.code }} Address</th>
                 {% endfor %}
               </tr>
-            {% empty %}
-              <tr>
-                <td class="tf-admin-empty" colspan="99">No users found.</td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody id="walletTableBody">
+              {% for row in rows %}
+                <tr data-search="{{ row.user.username|lower }} {{ row.user.email|default:''|lower }}">
+                  <td>
+                    <div class="tf-admin-wallet-usercell">
+                      <span class="tf-admin-wallet-userbadge">{{ row.user.username|first|upper }}</span>
+                      <span class="tf-admin-wallet-user">{{ row.user.username }}</span>
+                    </div>
+                  </td>
+                  <td class="tf-admin-wallet-email">{{ row.user.email|default:"-" }}</td>
+                  <td>
+                    <input
+                      class="tf-admin-number"
+                      type="number"
+                      min="0"
+                      step="0.01"
+                      name="account_{{ row.account.id }}_cash_balance"
+                      value="{{ row.account.balance }}"
+                      required
+                    >
+                  </td>
+                  {% for coin_data in row.coin_balances %}
+                    <td>
+                      <input
+                        class="tf-admin-number"
+                        type="number"
+                        min="0"
+                        step="0.00000001"
+                        name="account_{{ row.account.id }}_{{ coin_data.coin.code }}_total_balance"
+                        value="{{ coin_data.balance.total_balance }}"
+                        required
+                      >
+                    </td>
+                    <td>
+                      <input
+                        class="tf-admin-number"
+                        type="number"
+                        min="0"
+                        step="0.00000001"
+                        name="account_{{ row.account.id }}_{{ coin_data.coin.code }}_available_balance"
+                        value="{{ coin_data.balance.available_balance }}"
+                        required
+                      >
+                    </td>
+                    <td>
+                      <input
+                        class="tf-admin-text"
+                        type="text"
+                        name="account_{{ row.account.id }}_{{ coin_data.coin.code }}_wallet_address"
+                        value="{{ coin_data.balance.wallet_address }}"
+                      >
+                    </td>
+                  {% endfor %}
+                </tr>
+              {% empty %}
+                <tr>
+                  <td class="tf-admin-empty" colspan="99">No users found.</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
 
-      <div class="tf-admin-wallet-actions">
-        <button type="submit" class="tf-admin-save-btn">Save Wallet And Address Changes</button>
-      </div>
-    </form>
+        <div class="tf-admin-wallet-actions">
+          <div class="tf-admin-wallet-actions-copy">
+            <strong>Review carefully:</strong> all edits update live user wallet records.
+          </div>
+          <button type="submit" class="tf-admin-save-btn">
+            <i class="icon ion-md-checkmark-circle-outline"></i>
+            Save Wallet And Address Changes
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </section>
 
