@@ -36,7 +36,7 @@
 {% block content %}
   <div id="content-main">
     <p>
-      Edit user account cash balance and wallet balances here. Changes appear on each user's account and wallet pages.
+      Edit user cash balances, crypto balances, and wallet addresses here. Changes appear on each user's account and wallet pages before payment.
     </p>
 
     <form method="post">
@@ -51,6 +51,7 @@
               {% for coin in coins %}
                 <th>{{ coin.code }} Total</th>
                 <th>{{ coin.code }} Available</th>
+                <th>{{ coin.code }} Address</th>
               {% endfor %}
             </tr>
           </thead>
@@ -90,6 +91,13 @@
                       required
                     >
                   </td>
+                  <td>
+                    <input
+                      type="text"
+                      name="account_{{ row.account.id }}_{{ coin_data.coin.code }}_wallet_address"
+                      value="{{ coin_data.balance.wallet_address }}"
+                    >
+                  </td>
                 {% endfor %}
               </tr>
             {% empty %}
@@ -103,7 +111,7 @@
 
       <div class="submit-row">
         <a href="{% url 'admin:tradeflow_account_changelist' %}" class="button">Back to Accounts</a>
-        <input type="submit" value="Save Wallet Balances" class="default">
+        <input type="submit" value="Save Wallet Balances And Addresses" class="default">
       </div>
     </form>
   </div>

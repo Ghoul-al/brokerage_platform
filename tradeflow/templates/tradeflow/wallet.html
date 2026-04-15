@@ -13,14 +13,14 @@
               <div class="tf-wallet-hero-icon" style="width: 80px; height: 80px; background: rgba(255,255,255,0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 25px;">
                 <i class="icon ion-md-wallet" style="font-size: 45px;"></i>
               </div>
-              <div>
-                <h1 class="mb-2" style="color: white; font-weight: 700;">Your Wallet</h1>
-                <p class="mb-0" style="opacity: 0.9;">Manage your digital assets and transactions</p>
+              <div class="tf-wallet-hero-copy">
+                <h1 class="mb-2 tf-wallet-hero-title" style="color: white; font-weight: 700;">Your Wallet</h1>
+                <p class="mb-0 tf-wallet-hero-subtitle" style="opacity: 0.9;">Manage your digital assets and transactions</p>
               </div>
             </div>
             <div class="tf-wallet-total" style="text-align: right;">
-              <div style="opacity: 0.9; font-size: 13px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;">Total Balance</div>
-              <h2 style="color: white; margin: 0; font-weight: 700;">${{ account.balance }}</h2>
+              <div class="tf-wallet-total-label" style="opacity: 0.9; font-size: 13px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;">Total Balance</div>
+              <h2 class="tf-wallet-total-value" style="color: white; margin: 0; font-weight: 700;">${{ account.balance }}</h2>
             </div>
           </div>
         </div>
@@ -528,6 +528,32 @@
 </div>
 
 <style>
+  .tf-wallet-hero-layout {
+    gap: 1.5rem;
+    flex-wrap: nowrap;
+  }
+
+  .tf-wallet-hero-intro {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .tf-wallet-hero-copy {
+    min-width: 0;
+  }
+
+  .tf-wallet-hero-title,
+  .tf-wallet-hero-subtitle,
+  .tf-wallet-total-label,
+  .tf-wallet-total-value {
+    overflow-wrap: anywhere;
+  }
+
+  .tf-wallet-total {
+    flex: 0 0 auto;
+    min-width: 135px;
+  }
+
   .wallet-nav-tabs {
     display: flex;
     overflow-x: auto;
@@ -566,6 +592,65 @@
   
   .table-hover tbody tr:hover {
     background-color: #f8f9fa;
+  }
+
+  @media (max-width: 767px) {
+    .tf-wallet-hero-card .card-body {
+      padding: 1.2rem;
+    }
+
+    .tf-wallet-hero-layout {
+      flex-direction: column;
+      align-items: flex-start !important;
+      gap: 1rem;
+    }
+
+    .tf-wallet-hero-intro {
+      width: 100%;
+      flex-direction: row;
+      align-items: center !important;
+      gap: 0.9rem;
+    }
+
+    .tf-wallet-hero-icon {
+      width: 64px !important;
+      height: 64px !important;
+      margin-right: 0 !important;
+      flex: 0 0 64px;
+    }
+
+    .tf-wallet-hero-icon i {
+      font-size: 34px !important;
+    }
+
+    .tf-wallet-hero-title {
+      font-size: 2rem !important;
+      line-height: 1.05;
+      margin-bottom: 0.5rem !important;
+    }
+
+    .tf-wallet-hero-subtitle {
+      font-size: 1rem;
+      line-height: 1.45;
+    }
+
+    .tf-wallet-total {
+      width: 100%;
+      min-width: 0;
+      text-align: left !important;
+      padding-top: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .tf-wallet-total-label {
+      font-size: 0.78rem !important;
+      letter-spacing: 0.08em !important;
+    }
+
+    .tf-wallet-total-value {
+      font-size: 2rem !important;
+      line-height: 1.1;
+    }
   }
 </style>
 {% endblock content %}

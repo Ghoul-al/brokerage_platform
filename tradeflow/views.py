@@ -258,6 +258,9 @@ def admin_wallet_dashboard(request):
                         available_key = (
                             f"account_{account.id}_{coin_code}_available_balance"
                         )
+                        address_key = (
+                            f"account_{account.id}_{coin_code}_wallet_address"
+                        )
 
                         total_balance = _parse_non_negative_decimal(
                             request.POST.get(total_key, balance.total_balance),
@@ -267,17 +270,23 @@ def admin_wallet_dashboard(request):
                             request.POST.get(available_key, balance.available_balance),
                             f"{account.user.username} {coin_code} available balance",
                         )
+                        wallet_address = (
+                            request.POST.get(address_key, balance.wallet_address) or ""
+                        ).strip()
 
                         if (
                             total_balance != balance.total_balance
                             or available_balance != balance.available_balance
+                            or wallet_address != balance.wallet_address
                         ):
                             balance.total_balance = total_balance
                             balance.available_balance = available_balance
+                            balance.wallet_address = wallet_address
                             balance.save(
                                 update_fields=[
                                     "total_balance",
                                     "available_balance",
+                                    "wallet_address",
                                     "updated",
                                 ]
                             )
@@ -291,7 +300,7 @@ def admin_wallet_dashboard(request):
                 request,
                 (
                     f"Updated {updated_accounts} cash balances and "
-                    f"{updated_crypto} crypto balances."
+                    f"{updated_crypto} crypto wallet records."
                 ),
             )
         else:

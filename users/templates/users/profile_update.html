@@ -30,8 +30,8 @@
                   <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
 
-                    {% if request.user.profile.profile_image %}
-                      <img src="{{ request.user.profile.profile_image.url }}" alt="avatar">
+                    {% if profile_form.instance.has_custom_profile_image %}
+                      <img src="{{ profile_form.instance.profile_image.url }}" alt="avatar">
                     {% else %}
                       <img src="{% static 'assets/img/avatar.svg' %}" alt="avatar">
                     {% endif %}

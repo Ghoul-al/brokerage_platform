@@ -1,6 +1,9 @@
-from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
+from django.db import models
+
+
+DEFAULT_PROFILE_IMAGE_NAME = "assets/img/avatar.svg"
 
 class PaymentMethod(models.Model):
     PAYMENT_TYPES = (
@@ -33,7 +36,12 @@ class Profile(models.Model):
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     dob = models.DateField(null=True, blank=True)
     gender = models.CharField(max_length=1, choices=GENDER, null=True, blank=True)
-    profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True, default='assets/img/avatar.svg')
+    profile_image = models.ImageField(
+        upload_to='profile_images/',
+        blank=True,
+        null=True,
+        default=DEFAULT_PROFILE_IMAGE_NAME,
+    )
     two_factor_enabled = models.BooleanField(default=False)
     withdrawal_limit = models.DecimalField(max_digits=12, decimal_places=2, default=5000.00, validators=[MinValueValidator(0)])
     
@@ -42,5 +50,10 @@ class Profile(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s Profile"
-    
+
+    @property
+    def has_custom_profile_image(self):
+        if not self.profile_image:
+            return False
+        return self.profile_image.name != DEFAULT_PROFILE_IMAGE_NAME
  

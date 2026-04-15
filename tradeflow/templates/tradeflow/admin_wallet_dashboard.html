@@ -196,7 +196,25 @@
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
   }
 
+  .tf-admin-text {
+    min-width: 220px;
+    border-radius: 10px;
+    border: 1px solid rgba(43, 95, 181, 0.24);
+    background: #fff;
+    color: #13356a;
+    padding: 0.42rem 0.5rem;
+    font-weight: 600;
+    font-size: 0.88rem;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
   .tf-admin-number:focus {
+    border-color: rgba(22, 102, 222, 0.58);
+    box-shadow: 0 0 0 3px rgba(45, 127, 247, 0.14);
+  }
+
+  .tf-admin-text:focus {
     border-color: rgba(22, 102, 222, 0.58);
     box-shadow: 0 0 0 3px rgba(45, 127, 247, 0.14);
   }
@@ -269,7 +287,7 @@
         <span class="tf-admin-wallet-kicker">Staff Dashboard</span>
         <h1 class="tf-admin-wallet-title">Wallet Balance Control</h1>
         <p class="tf-admin-wallet-subtitle">
-          Update cash and crypto balances for every user from one workspace.
+          Update cash balances, crypto balances, and each user's deposit wallet address from one workspace.
         </p>
       </div>
       <div class="tf-admin-wallet-stats">
@@ -288,7 +306,7 @@
   <div class="tf-admin-wallet-panel">
     <div class="tf-admin-wallet-toolbar">
       <p class="tf-admin-wallet-note">
-        Changes are saved directly to account and wallet balances users see.
+        Changes are saved directly to the balances and wallet addresses users see before they make payment.
       </p>
       <div class="tf-admin-wallet-search-wrap">
         <input
@@ -312,6 +330,7 @@
               {% for coin in coins %}
                 <th>{{ coin.code }} Total</th>
                 <th>{{ coin.code }} Available</th>
+                <th>{{ coin.code }} Address</th>
               {% endfor %}
             </tr>
           </thead>
@@ -354,6 +373,14 @@
                       required
                     >
                   </td>
+                  <td>
+                    <input
+                      class="tf-admin-text"
+                      type="text"
+                      name="account_{{ row.account.id }}_{{ coin_data.coin.code }}_wallet_address"
+                      value="{{ coin_data.balance.wallet_address }}"
+                    >
+                  </td>
                 {% endfor %}
               </tr>
             {% empty %}
@@ -366,7 +393,7 @@
       </div>
 
       <div class="tf-admin-wallet-actions">
-        <button type="submit" class="tf-admin-save-btn">Save Balance Changes</button>
+        <button type="submit" class="tf-admin-save-btn">Save Wallet And Address Changes</button>
       </div>
     </form>
   </div>

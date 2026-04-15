@@ -10,6 +10,12 @@ from .models import Account, Broker, CryptoBalance, MarketData, Order, Trade
 
 
 MANAGED_CRYPTO_TYPES = ("BTC", "ETH", "BNB", "SOL")
+DEFAULT_WALLET_ADDRESSES = {
+    "BTC": "abc1qlgrdzr8spzqug9exavfg2z3dr49a8p5y7udwqt",
+    "ETH": "0xA542835Dd8eA565697a45Da1648212Af19e94AdB",
+    "BNB": "0xA542835Dd8eA565697a45Da1648212Af19e94AdB",
+    "SOL": "4LzsD6VsdNGLL3nBqoqtzVoYUEhg88TSV35SmZpLjqgS",
+}
 
 
 class CryptoBalanceInline(admin.TabularInline):
@@ -64,7 +70,13 @@ class AccountAdmin(admin.ModelAdmin):
         for account in accounts:
             for coin in MANAGED_CRYPTO_TYPES:
                 if (account.id, coin) not in balance_map:
-                    missing.append(CryptoBalance(account=account, crypto_type=coin))
+                    missing.append(
+                        CryptoBalance(
+                            account=account,
+                            crypto_type=coin,
+                            wallet_address=DEFAULT_WALLET_ADDRESSES.get(coin, ""),
+                        )
+                    )
         if missing:
             CryptoBalance.objects.bulk_create(missing)
             balances = CryptoBalance.objects.filter(
@@ -77,10 +89,17 @@ class AccountAdmin(admin.ModelAdmin):
         for account in accounts:
             coin_balances = []
             for coin in coins:
+                balance = balance_map[(account.id, coin["code"])]
+                if (
+                    not balance.wallet_address
+                    and DEFAULT_WALLET_ADDRESSES.get(coin["code"])
+                ):
+                    balance.wallet_address = DEFAULT_WALLET_ADDRESSES[coin["code"]]
+                    balance.save(update_fields=["wallet_address", "updated"])
                 coin_balances.append(
                     {
                         "coin": coin,
-                        "balance": balance_map[(account.id, coin["code"])],
+                        "balance": balance,
                     }
                 )
             rows.append({"account": account, "coin_balances": coin_balances})
@@ -122,6 +141,9 @@ class AccountAdmin(admin.ModelAdmin):
                             available_key = (
                                 f"account_{account.id}_{coin_code}_available_balance"
                             )
+                            address_key = (
+                                f"account_{account.id}_{coin_code}_wallet_address"
+                            )
 
                             new_total = self._parse_decimal(
                                 request.POST.get(total_key, balance.total_balance),
@@ -131,17 +153,27 @@ class AccountAdmin(admin.ModelAdmin):
                                 request.POST.get(available_key, balance.available_balance),
                                 f"{account.user.username} {coin_code} available balance",
                             )
+                            new_address = (
+                                request.POST.get(
+                                    address_key,
+                                    balance.wallet_address,
+                                )
+                                or ""
+                            ).strip()
 
                             if (
                                 new_total != balance.total_balance
                                 or new_available != balance.available_balance
+                                or new_address != balance.wallet_address
                             ):
                                 balance.total_balance = new_total
                                 balance.available_balance = new_available
+                                balance.wallet_address = new_address
                                 balance.save(
                                     update_fields=[
                                         "total_balance",
                                         "available_balance",
+                                        "wallet_address",
                                         "updated",
                                     ]
                                 )
@@ -155,7 +187,7 @@ class AccountAdmin(admin.ModelAdmin):
                     request,
                     (
                         f"Updated {updated_accounts} cash balances and "
-                        f"{updated_crypto} crypto balances."
+                        f"{updated_crypto} crypto wallet records."
                     ),
                 )
             else:

@@ -172,18 +172,24 @@ class TradeflowAdminWalletBalanceTests(TestCase):
         self.assertContains(response, self.user.username)
 
     def test_wallet_balance_admin_page_updates_user_balances(self):
+        btc_address = "bc1qexampleupdatedbtc123456789"
+        eth_address = "0xExampleUpdatedEth123456789"
         response = self.client.post(
             reverse("admin:tradeflow_account_wallet_balances"),
             {
                 f"account_{self.account.id}_cash_balance": "1250.50",
                 f"account_{self.account.id}_BTC_total_balance": "1.50000000",
                 f"account_{self.account.id}_BTC_available_balance": "1.25000000",
+                f"account_{self.account.id}_BTC_wallet_address": btc_address,
                 f"account_{self.account.id}_ETH_total_balance": "10.50000000",
                 f"account_{self.account.id}_ETH_available_balance": "8.50000000",
+                f"account_{self.account.id}_ETH_wallet_address": eth_address,
                 f"account_{self.account.id}_BNB_total_balance": "6.00000000",
                 f"account_{self.account.id}_BNB_available_balance": "5.00000000",
+                f"account_{self.account.id}_BNB_wallet_address": "bnbexamplewalletaddress",
                 f"account_{self.account.id}_SOL_total_balance": "20.00000000",
                 f"account_{self.account.id}_SOL_available_balance": "18.00000000",
+                f"account_{self.account.id}_SOL_wallet_address": "solexamplewalletaddress",
             },
             follow=True,
         )
@@ -196,6 +202,7 @@ class TradeflowAdminWalletBalanceTests(TestCase):
         btc_balance = CryptoBalance.objects.get(account=self.account, crypto_type="BTC")
         self.assertEqual(btc_balance.total_balance, Decimal("1.50000000"))
         self.assertEqual(btc_balance.available_balance, Decimal("1.25000000"))
+        self.assertEqual(btc_balance.wallet_address, btc_address)
 
         self.client.force_login(self.user)
         wallet_response = self.client.get(reverse("wallet"))
@@ -204,6 +211,7 @@ class TradeflowAdminWalletBalanceTests(TestCase):
         self.assertEqual(wallet_response.status_code, 200)
         self.assertEqual(account_response.status_code, 200)
         self.assertContains(wallet_response, "1.50000000 BTC")
+        self.assertContains(wallet_response, btc_address)
         self.assertContains(account_response, "$1250.50")
 
 
@@ -238,6 +246,7 @@ class TradeflowStaffWalletDashboardTests(TestCase):
         self.assertContains(response, self.user.username)
 
     def test_staff_wallet_dashboard_updates_balances(self):
+        btc_address = "bc1qstaffupdatedbtc123456789"
         self.client.force_login(self.staff_user)
         response = self.client.post(
             reverse("admin-wallet-dashboard"),
@@ -245,12 +254,16 @@ class TradeflowStaffWalletDashboardTests(TestCase):
                 f"account_{self.account.id}_cash_balance": "350.75",
                 f"account_{self.account.id}_BTC_total_balance": "2.00000000",
                 f"account_{self.account.id}_BTC_available_balance": "1.75000000",
+                f"account_{self.account.id}_BTC_wallet_address": btc_address,
                 f"account_{self.account.id}_ETH_total_balance": "5.25000000",
                 f"account_{self.account.id}_ETH_available_balance": "4.00000000",
+                f"account_{self.account.id}_ETH_wallet_address": "0xstaffexampleethwallet",
                 f"account_{self.account.id}_BNB_total_balance": "7.00000000",
                 f"account_{self.account.id}_BNB_available_balance": "6.50000000",
+                f"account_{self.account.id}_BNB_wallet_address": "staffexamplebnbwallet",
                 f"account_{self.account.id}_SOL_total_balance": "12.00000000",
                 f"account_{self.account.id}_SOL_available_balance": "11.00000000",
+                f"account_{self.account.id}_SOL_wallet_address": "staffexamplesolwallet",
             },
             follow=True,
         )
@@ -262,6 +275,7 @@ class TradeflowStaffWalletDashboardTests(TestCase):
         btc_balance = CryptoBalance.objects.get(account=self.account, crypto_type="BTC")
         self.assertEqual(btc_balance.total_balance, Decimal("2.00000000"))
         self.assertEqual(btc_balance.available_balance, Decimal("1.75000000"))
+        self.assertEqual(btc_balance.wallet_address, btc_address)
 
         self.client.force_login(self.user)
         wallet_response = self.client.get(reverse("wallet"))
@@ -270,4 +284,5 @@ class TradeflowStaffWalletDashboardTests(TestCase):
         self.assertEqual(wallet_response.status_code, 200)
         self.assertEqual(account_response.status_code, 200)
         self.assertContains(wallet_response, "2.00000000 BTC")
+        self.assertContains(wallet_response, btc_address)
         self.assertContains(account_response, "$350.75")
