@@ -2,15 +2,15 @@
 {% load static %}
 
 {% block content %}
-<div class="container-fluid mtb15">
+<div class="container-fluid mtb15 tf-wallet-page">
   <!-- Wallet Header -->
   <div class="row mb-4">
     <div class="col-md-12">
-      <div class="card" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; border: none;">
+      <div class="card tf-wallet-hero-card" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; border: none;">
         <div class="card-body">
-          <div class="d-flex justify-content-between align-items-start">
-            <div class="d-flex align-items-center">
-              <div style="width: 80px; height: 80px; background: rgba(255,255,255,0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 25px;">
+          <div class="d-flex justify-content-between align-items-start tf-wallet-hero-layout">
+            <div class="d-flex align-items-center tf-wallet-hero-intro">
+              <div class="tf-wallet-hero-icon" style="width: 80px; height: 80px; background: rgba(255,255,255,0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 25px;">
                 <i class="icon ion-md-wallet" style="font-size: 45px;"></i>
               </div>
               <div>
@@ -18,7 +18,7 @@
                 <p class="mb-0" style="opacity: 0.9;">Manage your digital assets and transactions</p>
               </div>
             </div>
-            <div style="text-align: right;">
+            <div class="tf-wallet-total" style="text-align: right;">
               <div style="opacity: 0.9; font-size: 13px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;">Total Balance</div>
               <h2 style="color: white; margin: 0; font-weight: 700;">${{ account.balance }}</h2>
             </div>
@@ -92,7 +92,7 @@
                           </div>
                         </div>
                       </div>
-                      <div style="display: flex; gap: 10px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e9ecef;">
+                      <div class="wallet-action-row" style="display: flex; gap: 10px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e9ecef;">
                         <button class="btn btn-sm" style="background-color: #28a745; color: white; border: none; flex: 1; font-weight: 600;">
                           <i class="icon ion-md-arrow-round-down"></i> Deposit
                         </button>
@@ -113,7 +113,7 @@
                     </div>
                     <div class="card-body">
                       <p class="text-muted small mb-3" style="line-height: 1.6;">Deposits to this address are unlimited. Note that you may not be able to withdraw all of your funds at once if you deposit more than your daily withdrawal limit.</p>
-                      <div style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 3px;">
+                      <div class="wallet-address-panel" style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 3px;">
                         <input type="text" class="form-control" value="{{ crypto_balances.BTC.wallet_address|default:'Not set' }}" readonly style="background: white; border: 1px solid #dee2e6; padding: 10px; font-size: 12px;">
                         <button class="btn btn-sm btn-primary mt-2" style="width: 100%; font-weight: 600;">
                           <i class="icon ion-md-copy"></i> COPY ADDRESS
@@ -208,7 +208,7 @@
                           </div>
                         </div>
                       </div>
-                      <div style="display: flex; gap: 10px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e9ecef;">
+                      <div class="wallet-action-row" style="display: flex; gap: 10px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e9ecef;">
                         <button class="btn btn-sm" style="background-color: #28a745; color: white; border: none; flex: 1; font-weight: 600;">
                           <i class="icon ion-md-arrow-round-down"></i> Deposit
                         </button>
@@ -229,7 +229,7 @@
                     </div>
                     <div class="card-body">
                       <p class="text-muted small mb-3" style="line-height: 1.6;">Deposits to this address are unlimited. Note that you may not be able to withdraw all of your funds at once if you deposit more than your daily withdrawal limit.</p>
-                      <div style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 3px;">
+                      <div class="wallet-address-panel" style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 3px;">
                         <input type="text" class="form-control" value="{{ crypto_balances.ETH.wallet_address|default:'Not set' }}" readonly style="background: white; border: 1px solid #dee2e6; padding: 10px; font-size: 12px;">
                         <button class="btn btn-sm btn-primary mt-2" style="width: 100%; font-weight: 600;">
                           <i class="icon ion-md-copy"></i> COPY ADDRESS
@@ -324,7 +324,7 @@
                           </div>
                         </div>
                       </div>
-                      <div style="display: flex; gap: 10px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e9ecef;">
+                      <div class="wallet-action-row" style="display: flex; gap: 10px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e9ecef;">
                         <button class="btn btn-sm" style="background-color: #28a745; color: white; border: none; flex: 1; font-weight: 600;">
                           <i class="icon ion-md-arrow-round-down"></i> Deposit
                         </button>
@@ -345,7 +345,7 @@
                     </div>
                     <div class="card-body">
                       <p class="text-muted small mb-3" style="line-height: 1.6;">Deposits to this address are unlimited. Note that you may not be able to withdraw all of your funds at once if you deposit more than your daily withdrawal limit.</p>
-                      <div style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 3px;">
+                      <div class="wallet-address-panel" style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 3px;">
                         <input type="text" class="form-control" value="{{ crypto_balances.BNB.wallet_address|default:'Not set' }}" readonly style="background: white; border: 1px solid #dee2e6; padding: 10px; font-size: 12px;">
                         <button class="btn btn-sm btn-primary mt-2" style="width: 100%; font-weight: 600;">
                           <i class="icon ion-md-copy"></i> COPY ADDRESS
@@ -439,7 +439,7 @@
                           </div>
                         </div>
                       </div>
-                      <div style="display: flex; gap: 10px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e9ecef;">
+                      <div class="wallet-action-row" style="display: flex; gap: 10px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e9ecef;">
                         <button class="btn btn-sm" style="background-color: #28a745; color: white; border: none; flex: 1; font-weight: 600;">
                           <i class="icon ion-md-arrow-round-down"></i> Deposit
                         </button>
@@ -460,7 +460,7 @@
                     </div>
                     <div class="card-body">
                       <p class="text-muted small mb-3" style="line-height: 1.6;">Deposits to this address are unlimited. Note that you may not be able to withdraw all of your funds at once if you deposit more than your daily withdrawal limit.</p>
-                      <div style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 3px;">
+                      <div class="wallet-address-panel" style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 3px;">
                         <input type="text" class="form-control" value="{{ crypto_balances.SOL.wallet_address|default:'Not set' }}" readonly style="background: white; border: 1px solid #dee2e6; padding: 10px; font-size: 12px;">
                         <button class="btn btn-sm btn-primary mt-2" style="width: 100%; font-weight: 600;">
                           <i class="icon ion-md-copy"></i> COPY ADDRESS

@@ -436,3 +436,344 @@
         width: 100%;
     }
 }
+
+html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+}
+
+body.tf-app-shell {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #23364d;
+    overflow-x: hidden;
+}
+
+.tf-main-shell {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.btn,
+.tf-btn,
+.tf-home-btn,
+.auth-btn,
+.btn-1,
+.btn-2,
+.markets-pair-list .load-more {
+    min-height: 42px;
+    padding: 0.68rem 1rem;
+    font-size: 0.95rem;
+    line-height: 1.2;
+    border-radius: 12px;
+}
+
+.btn:not(.dropdown-toggle),
+.tf-btn,
+.tf-home-btn,
+.auth-btn,
+.btn-1,
+.btn-2,
+.markets-pair-list .load-more {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+}
+
+.btn-sm {
+    min-height: 38px;
+    padding: 0.5rem 0.85rem;
+    font-size: 0.88rem;
+}
+
+.form-control,
+.custom-select,
+textarea.form-control {
+    min-height: 44px;
+    font-size: 0.96rem;
+    border-radius: 12px;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.table th,
+.table td,
+label,
+.nav-link,
+.dropdown-item {
+    font-size: 0.95rem;
+}
+
+.small,
+small {
+    font-size: 0.84rem;
+}
+
+.tf-nav .navbar-toggler {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 0.42rem 0.62rem;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.tf-nav .navbar-toggler i {
+    font-size: 1.15rem;
+    color: inherit;
+}
+
+.tf-nav .navbar-toggler:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(89, 201, 255, 0.2);
+}
+
+.tf-nav-links,
+.tf-nav-actions {
+    row-gap: 0.5rem;
+}
+
+.tf-brokers-page .markets-pair-list .nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0.7rem;
+    border-radius: 14px;
+}
+
+.tf-brokers-page .markets-pair-list .nav-link {
+    border-radius: 10px;
+    padding: 0.5rem 0.85rem;
+}
+
+.tf-brokers-page .markets-pair-list .table {
+    margin-bottom: 0;
+}
+
+.tf-brokers-page .markets-pair-list .load-more {
+    margin-top: 1.5rem;
+}
+
+.tf-market-overview-page .col-md-4 {
+    margin-bottom: 1rem;
+}
+
+.tf-wallet-page .wallet-nav-tabs {
+    gap: 0.35rem;
+    padding-right: 0.5rem;
+}
+
+.tf-wallet-page .wallet-tab-link {
+    min-height: 40px;
+    font-size: 0.92rem;
+}
+
+.tf-wallet-page .wallet-action-row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tf-wallet-page .wallet-action-row .btn {
+    flex: 1 1 180px;
+}
+
+.tf-wallet-page .wallet-address-panel .btn {
+    width: 100%;
+}
+
+.tf-wallet-page .table th,
+.tf-wallet-page .table td,
+.tf-profile-page .card-body p,
+.tf-profile-page .card-body label {
+    font-size: 0.95rem;
+}
+
+.tf-wallet-page .text-muted.small,
+.tf-profile-page .text-muted.small {
+    font-size: 0.79rem !important;
+}
+
+.tf-profile-page .badge,
+.tf-wallet-page .badge {
+    border-radius: 999px;
+    font-size: 0.76rem !important;
+    padding: 0.38rem 0.72rem !important;
+}
+
+.tf-wallet-page .wallet-address-panel .form-control {
+    font-size: 0.88rem !important;
+}
+
+.tf-profile-footer-actions,
+.tf-profile-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+}
+
+@media (max-width: 991px) {
+    .tf-main-shell {
+        padding-left: 0.9rem;
+        padding-right: 0.9rem;
+    }
+
+    .tf-nav {
+        padding: 0.8rem 0.95rem;
+    }
+
+    .tf-nav .navbar-collapse {
+        margin-top: 0.85rem;
+        padding-top: 0.85rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .tf-nav-links {
+        margin-bottom: 0.85rem;
+    }
+
+    .tf-nav-actions {
+        align-items: stretch !important;
+    }
+
+    .tf-nav-actions .nav-item,
+    .tf-nav-actions .tf-btn,
+    .tf-nav-actions .tf-balance-pill,
+    .tf-nav-actions .tf-user-chip {
+        width: 100%;
+        justify-content: center;
+        margin-right: 0 !important;
+    }
+
+    .tf-wallet-page .tf-wallet-hero-layout,
+    .tf-profile-page .tf-profile-hero-layout {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .tf-wallet-page .tf-wallet-total,
+    .tf-profile-page .tf-profile-hero-actions {
+        width: 100%;
+        text-align: left !important;
+    }
+
+    .tf-profile-page .tf-profile-hero-actions .btn,
+    .tf-profile-page .tf-profile-footer-actions .btn {
+        flex: 1 1 200px;
+    }
+}
+
+@media (max-width: 767px) {
+    body.tf-app-shell {
+        font-size: 0.97rem;
+    }
+
+    .tf-main-shell {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+    }
+
+    .btn,
+    .tf-btn,
+    .tf-home-btn,
+    .auth-btn,
+    .btn-1,
+    .btn-2,
+    .markets-pair-list .load-more {
+        min-height: 40px;
+        font-size: 0.91rem;
+        padding: 0.62rem 0.9rem;
+    }
+
+    .table th,
+    .table td,
+    label,
+    .nav-link,
+    .dropdown-item {
+        font-size: 0.92rem;
+    }
+
+    .tf-nav {
+        border-radius: 16px;
+        margin-top: 0.35rem;
+    }
+
+    .tf-brand-mark {
+        width: 34px;
+        height: 34px;
+    }
+
+    .tf-brand-text {
+        font-size: 1rem;
+    }
+
+    .tf-nav-link {
+        padding: 0.55rem 0.75rem !important;
+    }
+
+    .tf-brokers-page .markets-pair-list th,
+    .tf-brokers-page .markets-pair-list td {
+        padding: 0.75rem !important;
+        font-size: 0.9rem;
+        white-space: nowrap;
+    }
+
+    .tf-brokers-page .markets-pair-list .table,
+    .tf-exchange-page .table {
+        min-width: 640px;
+    }
+
+    .tf-market-overview-page .text-right {
+        text-align: left !important;
+    }
+
+    .tf-market-overview-page .btn-1,
+    .tf-market-overview-page .btn-2 {
+        margin: 0 0.6rem 0.6rem 0;
+    }
+
+    .tf-wallet-page .card-body,
+    .tf-profile-page .card-body {
+        padding: 1rem;
+    }
+
+    .tf-wallet-page .tf-wallet-hero-intro,
+    .tf-profile-page .tf-profile-identity {
+        flex-direction: column;
+        align-items: flex-start !important;
+    }
+
+    .tf-wallet-page .tf-wallet-hero-icon,
+    .tf-profile-page .tf-profile-avatar {
+        width: 72px !important;
+        height: 72px !important;
+        margin-right: 0 !important;
+        margin-bottom: 0.8rem;
+    }
+
+    .tf-wallet-page .tf-wallet-hero-icon i,
+    .tf-profile-page .tf-profile-avatar i {
+        font-size: 2rem !important;
+    }
+
+    .tf-wallet-page .wallet-action-row .btn,
+    .tf-profile-page .tf-profile-hero-actions .btn,
+    .tf-profile-page .tf-profile-footer-actions .btn {
+        width: 100%;
+        flex-basis: 100%;
+    }
+
+    .tf-wallet-page .wallet-address-panel,
+    .tf-wallet-page .table-responsive {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}

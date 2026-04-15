@@ -2,15 +2,15 @@
 {% load static %}
 
 {% block content %}
-<div class="container-fluid mtb15">
+<div class="container-fluid mtb15 tf-profile-page">
   <!-- Profile Header -->
   <div class="row mb-4">
     <div class="col-md-12">
       <div class="card profile-header-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
         <div class="card-body">
-          <div class="d-flex justify-content-between align-items-start">
-            <div class="d-flex align-items-center">
-              <div style="width: 100px; height: 100px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 25px;">
+          <div class="d-flex justify-content-between align-items-start tf-profile-hero-layout">
+            <div class="d-flex align-items-center tf-profile-identity">
+              <div class="tf-profile-avatar" style="width: 100px; height: 100px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 25px;">
                 <i class="icon ion-md-person" style="font-size: 50px;"></i>
               </div>
               <div>
@@ -19,7 +19,7 @@
                 <p class="mb-0" style="opacity: 0.9; font-size: 14px;">Account created {{ request.user.date_joined|date:"M d, Y" }}</p>
               </div>
             </div>
-            <div class="d-flex gap-2">
+            <div class="d-flex gap-2 tf-profile-hero-actions">
               <a class="btn btn-light btn-sm" href="{% url 'users:profile_view' request.user.username %}">
                 <i class="icon ion-md-eye"></i> Public View
               </a>
@@ -189,7 +189,7 @@
   <!-- Action Buttons -->
   <div class="row">
     <div class="col-md-12">
-      <div style="display: flex; gap: 10px; justify-content: flex-end;">
+      <div class="tf-profile-footer-actions" style="display: flex; gap: 10px; justify-content: flex-end;">
         <a class="btn btn-outline-secondary" href="{% url 'users:profile-update' %}">
           <i class="icon ion-md-create"></i> Update Profile
         </a>

@@ -97,6 +97,47 @@
         </div>
     </div>
 
+    <section class="tf-home-testimonials">
+        <div class="tf-home-testimonials-heading">
+            <p class="tf-home-kicker tf-home-kicker-soft">Trader Perspectives</p>
+            <h2>Feedback that reflects everyday trading routines</h2>
+            <p>Representative comments based on common TradeFlow use cases, from fast market checks on mobile to deeper desktop sessions.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 mb-3">
+                <article class="tf-testimonial-card">
+                    <div class="tf-testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+                    <p>"I can compare brokers, check spreads, and move into a trade without bouncing across multiple tabs."</p>
+                    <div class="tf-testimonial-meta">
+                        <strong>Amara O.</strong>
+                        <span>Forex swing trader</span>
+                    </div>
+                </article>
+            </div>
+            <div class="col-lg-4 mb-3">
+                <article class="tf-testimonial-card">
+                    <div class="tf-testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+                    <p>"The layout feels cleaner on my phone now, especially when I need to review positions and broker details during the day."</p>
+                    <div class="tf-testimonial-meta">
+                        <strong>David R.</strong>
+                        <span>Multi-asset investor</span>
+                    </div>
+                </article>
+            </div>
+            <div class="col-lg-4 mb-3">
+                <article class="tf-testimonial-card">
+                    <div class="tf-testimonial-stars" aria-label="4 out of 5 stars">★★★★☆</div>
+                    <p>"The balance between market data and execution tools makes the platform feel practical instead of overwhelming."</p>
+                    <div class="tf-testimonial-meta">
+                        <strong>Tolu A.</strong>
+                        <span>Part-time crypto trader</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
     <div class="tf-home-cta">
         <h2>Ready to start?</h2>
         <p>Move from market analysis to execution in a few clicks.</p>
@@ -147,6 +188,11 @@
         letter-spacing: 0.08em;
         text-transform: uppercase;
         font-weight: 700;
+    }
+
+    .tf-home-kicker-soft {
+        margin-bottom: 0.7rem;
+        background: rgba(13, 148, 136, 0.1);
     }
 
     .tf-home-title {
@@ -318,16 +364,98 @@
         font-family: "Plus Jakarta Sans", sans-serif;
     }
 
+    .tf-home-testimonials {
+        border: 1px solid #d8e5eb;
+        border-radius: 16px;
+        background: linear-gradient(180deg, #ffffff 0%, #f8fcfb 100%);
+        padding: 1rem;
+    }
+
+    .tf-home-testimonials-heading {
+        margin-bottom: 0.9rem;
+        max-width: 720px;
+    }
+
+    .tf-home-testimonials-heading h2 {
+        margin: 0;
+        color: #0b2f3d;
+        font-family: "Outfit", sans-serif;
+        font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+        font-weight: 700;
+    }
+
+    .tf-home-testimonials-heading p:last-child {
+        margin: 0.55rem 0 0;
+        color: #475569;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 0.95rem;
+        line-height: 1.65;
+    }
+
+    .tf-testimonial-card {
+        height: 100%;
+        border: 1px solid #d6e4e8;
+        border-radius: 14px;
+        background: #ffffff;
+        padding: 1rem;
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+    }
+
+    .tf-testimonial-stars {
+        color: #d97706;
+        font-size: 0.95rem;
+        letter-spacing: 0.08em;
+    }
+
+    .tf-testimonial-card p {
+        margin: 0.75rem 0 0;
+        color: #243b53;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+
+    .tf-testimonial-meta {
+        margin-top: 0.9rem;
+        padding-top: 0.8rem;
+        border-top: 1px solid #e4edf1;
+    }
+
+    .tf-testimonial-meta strong,
+    .tf-testimonial-meta span {
+        display: block;
+        font-family: "Plus Jakarta Sans", sans-serif;
+    }
+
+    .tf-testimonial-meta strong {
+        color: #102a43;
+        font-size: 0.95rem;
+        font-weight: 700;
+    }
+
+    .tf-testimonial-meta span {
+        margin-top: 0.12rem;
+        color: #64748b;
+        font-size: 0.84rem;
+    }
+
     @media (max-width: 767px) {
         .tf-home-hero-card,
         .tf-home-stats-card,
         .tf-home-info-card,
+        .tf-home-testimonials,
+        .tf-testimonial-card,
         .tf-home-cta {
             padding: 0.85rem;
         }
 
         .tf-home-btn {
             width: 100%;
+        }
+
+        .tf-home-testimonials-heading p:last-child,
+        .tf-testimonial-card p {
+            font-size: 0.92rem;
         }
     }
 </style>
