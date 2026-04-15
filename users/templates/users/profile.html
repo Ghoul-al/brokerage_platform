@@ -2,246 +2,436 @@
 {% load static %}
 
 {% block content %}
-<div class="container-fluid mtb15 tf-profile-page">
-  <!-- Profile Header -->
-  <div class="row mb-4">
-    <div class="col-md-12">
-        <div class="card profile-header-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-start tf-profile-hero-layout">
-            <div class="d-flex align-items-center tf-profile-identity">
-              <div class="tf-profile-avatar" style="width: 100px; height: 100px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 25px; overflow: hidden;">
-                {% if profile.has_custom_profile_image %}
-                  <img src="{{ profile.profile_image.url }}" alt="{{ request.user.username }} avatar" class="tf-profile-avatar-image">
-                {% else %}
-                  <img src="{% static 'assets/img/avatar.svg' %}" alt="default avatar" class="tf-profile-avatar-image tf-profile-avatar-image--default">
-                {% endif %}
-              </div>
-              <div>
-                <h1 class="mb-1" style="color: white;">{{ profile.full_name|default:request.user.username }}</h1>
-                <p class="mb-0" style="opacity: 0.9;">@{{ request.user.username }}</p>
-                <p class="mb-0" style="opacity: 0.9; font-size: 14px;">Account created {{ request.user.date_joined|date:"M d, Y" }}</p>
-              </div>
-            </div>
-            <div class="d-flex gap-2 tf-profile-hero-actions">
-              <a class="btn btn-light btn-sm" href="{% url 'users:profile_view' request.user.username %}">
-                <i class="icon ion-md-eye"></i> Public View
-              </a>
-              <a class="btn btn-outline-light btn-sm" href="{% url 'users:profile-update' %}">
-                <i class="icon ion-md-create"></i> Edit Profile
-              </a>
-            </div>
-          </div>
+<section class="tf-profile-shell">
+  <div class="tf-profile-hero-card">
+    <div class="tf-profile-hero-main">
+      <div class="tf-profile-hero-avatar-wrap">
+        <div class="tf-profile-hero-avatar">
+          {% if profile.has_custom_profile_image %}
+            <img src="{{ profile.profile_image.url }}" alt="{{ request.user.username }} avatar" class="tf-profile-hero-avatar-image">
+          {% else %}
+            <img src="{% static 'assets/img/avatar.svg' %}" alt="default avatar" class="tf-profile-hero-avatar-image tf-profile-hero-avatar-image--default">
+          {% endif %}
         </div>
       </div>
+
+      <div class="tf-profile-hero-copy">
+        <span class="tf-profile-kicker">Profile Overview</span>
+        <h1>{{ profile.full_name|default:request.user.username }}</h1>
+        <p class="tf-profile-handle mb-0">@{{ request.user.username }}</p>
+      </div>
+    </div>
+
+    <div class="tf-profile-hero-actions">
+      <a class="tf-profile-btn tf-profile-btn-ghost" href="{% url 'users:profile_view' request.user.username %}">
+        <span class="tf-profile-btn-icon">
+          <i class="icon ion-md-eye"></i>
+        </span>
+        <span>Public View</span>
+      </a>
+      <a class="tf-profile-btn tf-profile-btn-primary" href="{% url 'users:profile-update' %}">
+        <span class="tf-profile-btn-icon">
+          <i class="icon ion-md-create"></i>
+        </span>
+        <span>Edit Profile</span>
+      </a>
     </div>
   </div>
 
-  <!-- Profile Content -->
   <div class="row">
-    <!-- Account Information Section -->
-    <div class="col-md-6 mb-4">
-      <div class="card h-100">
-        <div class="card-header" style="background-color: #f8f9fa; border-bottom: 2px solid #667eea;">
-          <h5 class="card-title mb-0">
-            <i class="icon ion-md-person-outline" style="color: #667eea; margin-right: 8px;"></i>
-            Personal Information
-          </h5>
+    <div class="col-xl-8 mb-4">
+      <div class="tf-profile-panel tf-profile-panel-lg">
+        <div class="tf-profile-panel-header">
+          <h2>Personal Information</h2>
         </div>
-        <div class="card-body">
-          <div class="profile-field mb-3">
-            <label class="text-muted small" style="font-weight: 600; text-transform: uppercase; font-size: 11px;">Full Name</label>
-            <p class="mb-0 mt-1" style="font-size: 16px; font-weight: 500;">
-              {{ profile.full_name|default:"<span class='text-muted'>Not set</span>" }}
-            </p>
-          </div>
-          <hr>
-          <div class="profile-field mb-3">
-            <label class="text-muted small" style="font-weight: 600; text-transform: uppercase; font-size: 11px;">Username</label>
-            <p class="mb-0 mt-1" style="font-size: 16px; font-weight: 500;">
-              <i class="icon ion-md-at" style="color: #667eea;"></i> {{ request.user.username }}
-            </p>
-          </div>
-          <hr>
-          <div class="profile-field mb-3">
-            <label class="text-muted small" style="font-weight: 600; text-transform: uppercase; font-size: 11px;">Email Address</label>
-            <p class="mb-0 mt-1" style="font-size: 16px; font-weight: 500;">
-              <i class="icon ion-md-mail" style="color: #667eea;"></i> {{ request.user.email|default:"<span class='text-muted'>Not set</span>" }}
-            </p>
-          </div>
-          <hr>
-          <div class="profile-field">
-            <label class="text-muted small" style="font-weight: 600; text-transform: uppercase; font-size: 11px;">Phone Number</label>
-            <p class="mb-0 mt-1" style="font-size: 16px; font-weight: 500;">
-              <i class="icon ion-md-call" style="color: #667eea;"></i> {{ profile.phone_number|default:"<span class='text-muted'>Not set</span>" }}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Additional Details Section -->
-    <div class="col-md-6 mb-4">
-      <div class="card h-100">
-        <div class="card-header" style="background-color: #f8f9fa; border-bottom: 2px solid #764ba2;">
-          <h5 class="card-title mb-0">
-            <i class="icon ion-md-information-circle-outline" style="color: #764ba2; margin-right: 8px;"></i>
-            Additional Details
-          </h5>
-        </div>
-        <div class="card-body">
-          <div class="profile-field mb-3">
-            <label class="text-muted small" style="font-weight: 600; text-transform: uppercase; font-size: 11px;">Date of Birth</label>
-            <p class="mb-0 mt-1" style="font-size: 16px; font-weight: 500;">
-              <i class="icon ion-md-calendar" style="color: #764ba2;"></i> 
-              {% if profile.dob %}
-                {{ profile.dob|date:"M d, Y" }}
-              {% else %}
-                <span class="text-muted">Not set</span>
-              {% endif %}
-            </p>
-          </div>
-          <hr>
-          <div class="profile-field mb-3">
-            <label class="text-muted small" style="font-weight: 600; text-transform: uppercase; font-size: 11px;">Gender</label>
-            <p class="mb-0 mt-1" style="font-size: 16px; font-weight: 500;">
-              {% if profile.gender %}
-                <i class="icon ion-md-people" style="color: #764ba2;"></i> {{ profile.get_gender_display }}
-              {% else %}
-                <span class="text-muted">Not set</span>
-              {% endif %}
-            </p>
-          </div>
-          <hr>
-          <div class="profile-field mb-3">
-            <label class="text-muted small" style="font-weight: 600; text-transform: uppercase; font-size: 11px;">Withdrawal Limit</label>
-            <p class="mb-0 mt-1" style="font-size: 16px; font-weight: 500;">
-              <i class="icon ion-md-card" style="color: #764ba2;"></i> 
-              {% if profile.withdrawal_limit %}
-                ${{ profile.withdrawal_limit|floatformat:2 }}
-              {% else %}
-                <span class="text-muted">Not set</span>
-              {% endif %}
-            </p>
-          </div>
-          <hr>
-          <div class="profile-field">
-            <label class="text-muted small" style="font-weight: 600; text-transform: uppercase; font-size: 11px;">Account Status</label>
-            <p class="mb-0 mt-1">
-              {% if request.user.is_active %}
-                <span class="badge" style="background-color: #28a745; font-size: 12px; padding: 6px 12px;">
-                  <i class="icon ion-md-checkmark-circle"></i> Active
-                </span>
-              {% else %}
-                <span class="badge" style="background-color: #dc3545; font-size: 12px; padding: 6px 12px;">
-                  <i class="icon ion-md-close-circle"></i> Inactive
-                </span>
-              {% endif %}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Security Section -->
-  <div class="row">
-    <div class="col-md-12 mb-4">
-      <div class="card">
-        <div class="card-header" style="background-color: #f8f9fa; border-bottom: 2px solid #ff6b6b;">
-          <h5 class="card-title mb-0">
-            <i class="icon ion-md-lock" style="color: #ff6b6b; margin-right: 8px;"></i>
-            Security Settings
-          </h5>
-        </div>
-        <div class="card-body">
+        <div class="tf-profile-panel-body">
           <div class="row">
-            <div class="col-md-6">
-              <div class="d-flex align-items-center p-3" style="background-color: #f8f9fa; border-radius: 8px; margin-bottom: 15px;">
-                <div style="width: 50px; height: 50px; background-color: {% if profile.two_factor_enabled %}#28a745{% else %}#e9ecef{% endif %}; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
-                  <i class="icon ion-md-shield" style="font-size: 24px; color: white;"></i>
-                </div>
-                <div>
-                  <h6 class="mb-0" style="font-weight: 600;">Two-Factor Authentication</h6>
-                  <p class="mb-0 text-muted small">
-                    {% if profile.two_factor_enabled %}
-                      <span style="color: #28a745;"><i class="icon ion-md-checkmark"></i> Enabled</span>
-                    {% else %}
-                      <span style="color: #ff6b6b;"><i class="icon ion-md-close"></i> Disabled</span>
-                    {% endif %}
-                  </p>
-                </div>
+            <div class="col-md-6 mb-4">
+              <div class="tf-profile-detail">
+                <p class="tf-profile-label">Full Name</p>
+                <p class="tf-profile-value">{{ profile.full_name|default:"Not set" }}</p>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="d-flex align-items-center p-3" style="background-color: #f8f9fa; border-radius: 8px; margin-bottom: 15px;">
-                <div style="width: 50px; height: 50px; background-color: #4a90e2; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
-                  <i class="icon ion-md-key" style="font-size: 24px; color: white;"></i>
-                </div>
-                <div>
-                  <h6 class="mb-0" style="font-weight: 600;">Password</h6>
-                  <p class="mb-0 text-muted small">Last updated 3 months ago</p>
-                </div>
+
+            <div class="col-md-6 mb-4">
+              <div class="tf-profile-detail">
+                <p class="tf-profile-label">Username</p>
+                <p class="tf-profile-value">{{ request.user.username }}</p>
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+              <div class="tf-profile-detail">
+                <p class="tf-profile-label">Email</p>
+                <p class="tf-profile-value">{{ request.user.email|default:"Not set" }}</p>
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+              <div class="tf-profile-detail">
+                <p class="tf-profile-label">Phone</p>
+                <p class="tf-profile-value">{{ profile.phone_number|default:"Not set" }}</p>
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-0">
+              <div class="tf-profile-detail">
+                <p class="tf-profile-label">Gender</p>
+                <p class="tf-profile-value">
+                  {% if profile.gender %}
+                    {{ profile.get_gender_display }}
+                  {% else %}
+                    Not set
+                  {% endif %}
+                </p>
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-0">
+              <div class="tf-profile-detail">
+                <p class="tf-profile-label">Date Of Birth</p>
+                <p class="tf-profile-value">
+                  {% if profile.dob %}
+                    {{ profile.dob|date:"M d, Y" }}
+                  {% else %}
+                    Not set
+                  {% endif %}
+                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Action Buttons -->
-  <div class="row">
-    <div class="col-md-12">
-      <div class="tf-profile-footer-actions" style="display: flex; gap: 10px; justify-content: flex-end;">
-        <a class="btn btn-outline-secondary" href="{% url 'users:profile-update' %}">
-          <i class="icon ion-md-create"></i> Update Profile
-        </a>
-        <a class="btn btn-outline-danger" href="{% url 'users:logout' %}">
-          <i class="icon ion-md-log-out"></i> Logout
-        </a>
+    <div class="col-xl-4 mb-4">
+      <div class="tf-profile-panel mb-4">
+        <div class="tf-profile-panel-header">
+          <h2>Security</h2>
+        </div>
+        <div class="tf-profile-panel-body">
+          <div class="tf-profile-stack-item">
+            <p class="tf-profile-label">Two Factor Authentication</p>
+            <span class="tf-profile-status {% if profile.two_factor_enabled %}tf-profile-status-success{% else %}tf-profile-status-muted{% endif %}">
+              {% if profile.two_factor_enabled %}Enabled{% else %}Disabled{% endif %}
+            </span>
+          </div>
+
+          <div class="tf-profile-stack-item mb-0">
+            <p class="tf-profile-label">Account Status</p>
+            <span class="tf-profile-status {% if request.user.is_active %}tf-profile-status-success{% else %}tf-profile-status-danger{% endif %}">
+              {% if request.user.is_active %}Active{% else %}Inactive{% endif %}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tf-profile-panel">
+        <div class="tf-profile-panel-header">
+          <h2>Limits</h2>
+        </div>
+        <div class="tf-profile-panel-body">
+          <p class="tf-profile-label">Withdrawal Limit</p>
+          <p class="tf-profile-limit-value">${{ profile.withdrawal_limit|floatformat:2 }}</p>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
 <style>
-  .profile-header-card {
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  .tf-profile-shell {
+    color: #1d2c66;
   }
 
-  .tf-profile-avatar-image {
+  .tf-profile-hero-card,
+  .tf-profile-panel {
+    border: 1px solid #d9e3fb;
+    border-radius: 1.9rem;
+    background: #ffffff;
+    box-shadow: 0 14px 40px rgba(38, 78, 160, 0.08);
+    overflow: hidden;
+  }
+
+  .tf-profile-hero-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 2rem 2.2rem;
+    margin-bottom: 2rem;
+    background: linear-gradient(180deg, #eef4ff 0%, #f7faff 100%);
+  }
+
+  .tf-profile-hero-main {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    min-width: 0;
+  }
+
+  .tf-profile-hero-avatar {
+    width: 160px;
+    height: 160px;
+    border-radius: 1.8rem;
+    overflow: hidden;
+    border: 4px solid #d6e3ff;
+    background: #ffffff;
+    box-shadow: 0 16px 32px rgba(41, 80, 154, 0.12);
+  }
+
+  .tf-profile-hero-avatar-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
 
-  .tf-profile-avatar-image--default {
-    padding: 0.85rem;
+  .tf-profile-hero-avatar-image--default {
+    padding: 0.45rem;
     object-fit: contain;
   }
-  
-  .profile-field {
-    position: relative;
+
+  .tf-profile-hero-copy {
+    min-width: 0;
   }
-  
-  .profile-field label {
-    letter-spacing: 0.5px;
+
+  .tf-profile-kicker {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.4rem 1.15rem;
+    border-radius: 999px;
+    background: #dfe9fb;
+    color: #3868be;
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
   }
-  
-  .card {
-    border: 1px solid #e9ecef;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
+
+  .tf-profile-hero-copy h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+    color: #1a2767;
+    margin: 0 0 0.85rem;
+    overflow-wrap: anywhere;
   }
-  
-  .card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  .badge {
+
+  .tf-profile-handle {
+    font-size: 1.1rem;
+    color: #6d7b99;
     font-weight: 600;
-    letter-spacing: 0.5px;
+  }
+
+  .tf-profile-hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    padding: 0.45rem;
+    border-radius: 1.5rem;
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(199, 214, 251, 0.85);
+    box-shadow: 0 16px 30px rgba(41, 80, 154, 0.08);
+    backdrop-filter: blur(14px);
+  }
+
+  .tf-profile-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    min-height: 64px;
+    padding: 0.9rem 1.25rem;
+    border-radius: 1.1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .tf-profile-btn:hover {
+    text-decoration: none;
+    transform: translateY(-2px);
+  }
+
+  .tf-profile-btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.35rem;
+    height: 2.35rem;
+    border-radius: 0.9rem;
+    font-size: 1rem;
+    flex: 0 0 2.35rem;
+  }
+
+  .tf-profile-btn-ghost {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(243, 247, 255, 0.9));
+    color: #2b4a8f;
+    border: 1px solid rgba(188, 208, 252, 0.95);
+    box-shadow: 0 12px 24px rgba(48, 85, 160, 0.08);
+  }
+
+  .tf-profile-btn-ghost .tf-profile-btn-icon {
+    color: #3561bb;
+    background: rgba(57, 111, 214, 0.12);
+  }
+
+  .tf-profile-btn-primary {
+    border: 1px solid transparent;
+    color: #ffffff;
+    background: linear-gradient(135deg, #2f80ed, #4cc9f0);
+    box-shadow: 0 14px 30px rgba(52, 126, 236, 0.28);
+  }
+
+  .tf-profile-btn-primary .tf-profile-btn-icon {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.16);
+  }
+
+  .tf-profile-panel-header {
+    padding: 1.45rem 1.9rem;
+    border-bottom: 1px solid #dbe4fb;
+    background: #ffffff;
+  }
+
+  .tf-profile-panel-header h2 {
+    margin: 0;
+    color: #1f2f6d;
+    font-size: clamp(1.6rem, 3vw, 2rem);
+    line-height: 1.1;
+  }
+
+  .tf-profile-panel-body {
+    padding: 1.9rem;
+    background: #ffffff;
+  }
+
+  .tf-profile-panel-lg .tf-profile-panel-body {
+    min-height: 430px;
+  }
+
+  .tf-profile-detail,
+  .tf-profile-stack-item {
+    min-width: 0;
+  }
+
+  .tf-profile-stack-item {
+    margin-bottom: 2rem;
+  }
+
+  .tf-profile-label {
+    margin-bottom: 0.7rem;
+    color: #7381a7;
+    font-size: 0.92rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .tf-profile-value {
+    margin: 0;
+    color: #1d2c66;
+    font-size: 1.02rem;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+
+  .tf-profile-status {
+    display: inline-flex;
+    align-items: center;
+    min-height: 42px;
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  .tf-profile-status-muted {
+    background: #eceff5;
+    color: #65718f;
+  }
+
+  .tf-profile-status-success {
+    background: #dff2e4;
+    color: #1f8f53;
+  }
+
+  .tf-profile-status-danger {
+    background: #ffe3e3;
+    color: #c03f4d;
+  }
+
+  .tf-profile-limit-value {
+    margin: 0;
+    color: #1b2866;
+    font-size: clamp(2.2rem, 6vw, 3.25rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    overflow-wrap: anywhere;
+  }
+
+  @media (max-width: 1199px) {
+    .tf-profile-panel-lg .tf-profile-panel-body {
+      min-height: 0;
+    }
+  }
+
+  @media (max-width: 991px) {
+    .tf-profile-hero-card {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 1.5rem;
+    }
+
+    .tf-profile-hero-actions {
+      width: 100%;
+      justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .tf-profile-hero-main {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .tf-profile-hero-avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 1.3rem;
+    }
+
+    .tf-profile-btn {
+      width: 100%;
+      min-height: 54px;
+      justify-content: flex-start;
+      padding: 0.85rem 1rem;
+    }
+
+    .tf-profile-hero-actions {
+      padding: 0.5rem;
+      gap: 0.65rem;
+      border-radius: 1.25rem;
+    }
+
+    .tf-profile-panel-header,
+    .tf-profile-panel-body {
+      padding: 1.25rem;
+    }
+
+    .tf-profile-panel-header h2 {
+      font-size: 1.45rem;
+    }
+
+    .tf-profile-value {
+      font-size: 0.98rem;
+    }
   }
 </style>
 {% endblock content %}
