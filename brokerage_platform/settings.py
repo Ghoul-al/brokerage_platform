@@ -37,7 +37,7 @@ def database_config():
     """
     Supports either DATABASE_URL or discrete DB_* variables.
     """
-    database_url = os.getenv("DATABASE_URL", "").strip()
+    database_url = (os.getenv("DATABASE_URL") or "").strip()
 
     if database_url:
         parsed = urlparse(database_url)
@@ -75,20 +75,21 @@ def database_config():
 
         return config
 
-    db_engine = os.getenv("DB_ENGINE", "django.db.backends.sqlite3")
+    db_engine_raw = (os.getenv("DB_ENGINE") or "").strip()
+    db_engine = db_engine_raw or "django.db.backends.sqlite3"
     if db_engine == "django.db.backends.sqlite3":
         return {
             "ENGINE": db_engine,
-            "NAME": os.getenv("DB_NAME", str(BASE_DIR / "db.sqlite3")),
+            "NAME": (os.getenv("DB_NAME") or str(BASE_DIR / "db.sqlite3")),
         }
 
     return {
         "ENGINE": db_engine,
-        "NAME": os.getenv("DB_NAME", ""),
-        "USER": os.getenv("DB_USER", ""),
-        "PASSWORD": os.getenv("DB_PASSWORD", ""),
-        "HOST": os.getenv("DB_HOST", ""),
-        "PORT": os.getenv("DB_PORT", ""),
+        "NAME": (os.getenv("DB_NAME") or ""),
+        "USER": (os.getenv("DB_USER") or ""),
+        "PASSWORD": (os.getenv("DB_PASSWORD") or ""),
+        "HOST": (os.getenv("DB_HOST") or ""),
+        "PORT": (os.getenv("DB_PORT") or ""),
     }
 
 
@@ -108,8 +109,12 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 if not SECRET_KEY and not DEBUG:
     raise ValueError("SECRET_KEY must be set in production")
 
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
 
-ALLOWED_HOSTS = env_list("ALLOWED_HOSTS")
+
+ALLOWED_HOSTS = [
+    "brokerage-platform.onrender.com",
+]
 
 if not ALLOWED_HOSTS and not DEBUG:
     raise ValueError("ALLOWED_HOSTS must be set in production")
