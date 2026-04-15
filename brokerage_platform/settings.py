@@ -109,12 +109,10 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 if not SECRET_KEY and not DEBUG:
     raise ValueError("SECRET_KEY must be set in production")
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
-
-
-ALLOWED_HOSTS = [
-    "brokerage-platform.onrender.com",
-]
+ALLOWED_HOSTS = env_list(
+    "ALLOWED_HOSTS",
+    "127.0.0.1,localhost,testserver,brokerage-platform.onrender.com",
+)
 
 if not ALLOWED_HOSTS and not DEBUG:
     raise ValueError("ALLOWED_HOSTS must be set in production")
@@ -187,6 +185,10 @@ WSGI_APPLICATION = 'brokerage_platform.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+
+DATABASES = {
+    "default": database_config()
+}
 
 
 # Password validation
