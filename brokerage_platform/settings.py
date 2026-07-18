@@ -112,7 +112,7 @@ if not SECRET_KEY and not DEBUG:
 
 ALLOWED_HOSTS = env_list(
     "ALLOWED_HOSTS",
-    "127.0.0.1,localhost,testserver,brokerage-platform.onrender.com",
+    "127.0.0.1,localhost,testserver,brokerage-platform.onrender.com",'.vercel.app',
 )
 
 if not ALLOWED_HOSTS and not DEBUG:
