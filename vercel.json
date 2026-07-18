@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "version": 3,
+  "buildCommand": "python manage.py collectstatic --noinput",
+  "functions": {
+    "brokerage_platform/wsgi.py": {
+      "memory": 1536,
+      "maxDuration": 60,
+      "excludeFiles": "{**/tests/**,**/*.pyc,**/__pycache__/**,**/.git/**,**/.venv/**,**/.env,**/.env.*}"
+    }
+  }
+}
